@@ -1,0 +1,30 @@
+{{define "header"}}
+<header class="flex justify-between items-center mt-10">
+  <a href="/" class="text-2xl"><span class="font-bold">ramonvermeulen</span>.dev</a>
+  <nav class="lg:flex">
+    <ul class="flex space-x-6 text-lg">
+      <li>
+        <a
+          href="/"
+          class="{{if eq .Path "/"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+          >About</a
+        >
+      </li>
+      <li>
+        <a
+          href="/experience"
+          class="{{if eq .Path "/experience"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+          >Experience</a
+        >
+      </li>
+      <li>
+        <a
+          href="/blog"
+          class="{{if eq .Path "/blog"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+          >Blog</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+{{end}}
