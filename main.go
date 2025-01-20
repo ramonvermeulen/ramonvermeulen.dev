@@ -64,8 +64,5 @@ func main() {
 	http.HandleFunc("GET /", ServeHTTP)
 
 	log.Println("Server started on :8080")
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
