@@ -28,3 +28,4 @@ go.work.sum
 *.min.js
 *.min.css
 node_modules
+example-blogpost.md

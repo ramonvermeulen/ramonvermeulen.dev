@@ -4,13 +4,13 @@
   "description": "Repository containing the code for my personal website [ramonvermeulen.dev](https://ramonvermeulen.dev).",
   "main": "index.js",
   "scripts": {
-    "dev:css": "npx @tailwindcss/cli -i ./ui/assets/css/tailwind.css -o ./ui/static/css/tailwind.min.css --watch --minify",
-    "dev:js": "chokidar './ui/assets/js/theme.js' -c 'npm run minify-js'",
-    "build:css": "npx @tailwindcss/cli -i ./ui/assets/css/tailwind.css -o ./ui/static/css/tailwind.min.css --minify",
+    "dev:css": "npx @tailwindcss/cli -i assets/css/tailwind.css -o assets/static/css/tailwind.min.css --watch --minify",
+    "dev:js": "chokidar 'assets/js/theme.js' -c 'npm run minify-js'",
+    "build:css": "npx @tailwindcss/cli -i assets/css/tailwind.css -o assets/static/css/tailwind.min.css --minify",
     "build:js": "npm run minify-js",
     "dev": "npm-run-all --parallel dev:css dev:js",
     "build": "npm-run-all --parallel build:css build:js",
-    "minify-js": "terser ./ui/assets/js/theme.js -o ./ui/static/js/theme.min.js"
+    "minify-js": "terser assets/js/theme.js -o assets/static/js/theme.min.js"
   },
   "repository": {
     "type": "git",
