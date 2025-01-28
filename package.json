@@ -1,0 +1,34 @@
+{
+  "name": "ramonvermeulen.dev",
+  "version": "1.0.0",
+  "description": "Repository containing the code for my personal website [ramonvermeulen.dev](https://ramonvermeulen.dev).",
+  "main": "index.js",
+  "scripts": {
+    "dev:css": "npx @tailwindcss/cli -i ./ui/assets/css/tailwind.css -o ./ui/static/css/tailwind.min.css --watch --minify",
+    "dev:js": "chokidar './ui/assets/js/theme.js' -c 'npm run minify-js'",
+    "build:css": "npx @tailwindcss/cli -i ./ui/assets/css/tailwind.css -o ./ui/static/css/tailwind.min.css --minify",
+    "build:js": "npm run minify-js",
+    "dev": "npm-run-all --parallel dev:css dev:js",
+    "build": "npm-run-all --parallel build:css build:js",
+    "minify-js": "terser ./ui/assets/js/theme.js -o ./ui/static/js/theme.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramonvermeulen/ramonvermeulen.dev.git"
+  },
+  "keywords": [],
+  "author": "Ramon Vermeulen",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ramonvermeulen/ramonvermeulen.dev/issues"
+  },
+  "homepage": "https://github.com/ramonvermeulen/ramonvermeulen.dev#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "chokidar-cli": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^4.0.0",
+    "terser": "^5.37.0"
+  }
+}

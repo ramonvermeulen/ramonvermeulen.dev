@@ -1,29 +1,39 @@
 {{define "base"}}
-<!doctype html>
-<html lang="en">
+  <!doctype html>
+  <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{.Title}} | ramonvermeulen.dev</title>
-    <!-- TODO replace tailwindcss/fonts with static variant -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      (function () {
+        const isDarkMode = localStorage.currentTheme === "dark" ||
+          (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (isDarkMode) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <script src="/static/js/theme.min.js"></script>
+    <link rel="stylesheet" href="/static/css/tailwind.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
     />
   </head>
   <body
-    class="bg-[url('/static/background.png')] bg-cover bg-center bg-no-repeat"
+          class="bg-[url('/static/img/background.png')] bg-cover bg-center bg-no-repeat bg-white dark:bg-black text-black dark:text-white transition-colors duration-300"
   >
-    <div class="max-w-[900px] mx-auto min-h-screen flex flex-col">
-      <div class="header">{{template "header" .}}</div>
+  <div class="max-w-[900px] mx-auto min-h-screen flex flex-col">
+    <div class="header">{{template "header" .}}</div>
 
       {{block "content" .}} {{end}}
 
-      <div class="footer">{{template "footer" .}}</div>
-    </div>
+    <div class="footer">{{template "footer" .}}</div>
+  </div>
   </body>
-</html>
+  </html>
 {{end}}

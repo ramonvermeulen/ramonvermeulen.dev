@@ -1,30 +1,36 @@
 {{define "header"}}
-<header class="flex justify-between items-center mt-10">
-  <a href="/" class="text-2xl"><span class="font-bold">ramonvermeulen</span>.dev</a>
-  <nav class="lg:flex">
-    <ul class="flex space-x-6 text-lg">
-      <li>
-        <a
-          href="/"
-          class="{{if eq .Path "/"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+  <header class="flex justify-between items-center mt-10">
+    <a href="/" class="text-2xl"><span class="font-bold">ramonvermeulen</span>.dev</a>
+    <nav class="lg:flex">
+      <ul class="flex space-x-6 text-lg items-center dark:text-gray-200">
+        <li>
+          <a href="/"
+             class="{{if eq .Path "/"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
           >About</a
-        >
-      </li>
-      <li>
-        <a
-          href="/experience"
-          class="{{if eq .Path "/experience"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+          >
+        </li>
+        <li>
+          <a href="/experience"
+             class="{{if eq .Path "/experience"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
           >Experience</a
-        >
-      </li>
-      <li>
-        <a
-          href="/blog"
-          class="{{if eq .Path "/blog"}}font-semibold{{end}} text-black hover:text-gray-700 hover:underline transition-colors duration-300"
+          >
+        </li>
+        <li>
+          <a href="/blog"
+             class="{{if eq .Path "/blog"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
           >Blog</a
-        >
-      </li>
-    </ul>
-  </nav>
-</header>
+          >
+        </li>
+        <li>
+          <div class="top-10 right-10 cursor-pointer bg-gray-300 hover:bg-gray-500 rounded-full w-10 h-10 flex items-center justify-center"
+               onclick="toggleTheme()">
+            <i class='bx bxs-moon text-2xl text-white leading-none'></i>
+          </div>
+        </li>
+      </ul>
+
+
+    </nav>
+
+  </header>
 {{end}}
