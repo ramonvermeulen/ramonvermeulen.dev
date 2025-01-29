@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -20,8 +21,8 @@ import (
 func newFileReader() (markdown.FileReader, error) {
 	basePath := os.Getenv("POSTS_BASE_PATH")
 	if basePath == "" {
-		log.Println("POSTS_BASE_PATH environment variable not set, defaulting to 'posts'")
-		basePath = "./posts"
+		basePath = "./assets/static/posts"
+		log.Println(fmt.Sprintf("POSTS_BASE_PATH environment variable not set, defaulting to %s", basePath))
 	}
 	if os.Getenv("ENV") == "production" {
 		bucketName := os.Getenv("GCS_POSTS_BUCKET")
@@ -66,9 +67,13 @@ func main() {
 	}
 
 	router := chi.NewRouter()
-	fs := http.FileServer(http.Dir("./assets/static"))
 
-	router.Handle("GET /static/*", http.StripPrefix("/static", fs))
+	if os.Getenv("ENV") != "production" {
+		fs := http.FileServer(http.Dir("./static"))
+		router.Handle("GET /static/*", http.StripPrefix("/static", fs))
+		log.Println("Serving static files from ./assets/static instead of CDN")
+	}
+
 	router.Get("/blog/{postSlug:[a-z-]+}", handlers.BlogPostHandler(renderer))
 	router.Get("/*", handlers.StaticPageHandler())
 
