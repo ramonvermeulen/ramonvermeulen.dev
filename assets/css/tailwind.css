@@ -2,32 +2,66 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer base {
+.post-content {
   h1 {
-    @apply text-5xl font-extrabold;
+    @apply text-5xl font-extrabold mt-8 mb-4;
   }
   h2 {
-    @apply text-4xl font-bold;
+    @apply text-4xl font-bold mt-6 mb-3;
   }
   h3 {
-    @apply text-3xl font-semibold;
+    @apply text-3xl font-semibold mt-5 mb-2;
   }
   h4 {
-    @apply text-2xl font-medium;
+    @apply text-2xl font-medium mt-4 mb-2;
   }
   h5 {
-    @apply text-xl font-medium;
+    @apply text-xl font-medium mt-3 mb-1;
   }
   h6 {
-    @apply text-lg font-medium;
+    @apply text-lg font-medium mt-2 mb-1;
   }
   p {
-    @apply text-base;
+    @apply text-base leading-relaxed mt-2 mb-4;
   }
   blockquote {
-    @apply border-l-4 pl-4 italic;
+    @apply border-l-4 pl-4 italic text-gray-600 my-4;
   }
   pre {
-    @apply text-sm rounded-lg p-4;
+    @apply text-sm rounded-lg p-4 bg-gray-100 overflow-x-auto my-4;
+  }
+  code {
+    @apply bg-[#2e3440] text-gray-200 rounded px-1;
+  }
+  ul {
+    @apply list-disc pl-5 my-4;
+  }
+  ol {
+    @apply list-decimal pl-5 my-4;
+  }
+  li {
+    @apply mb-2;
+  }
+  a {
+    @apply text-blue-500 underline hover:text-blue-700;
+  }
+  img {
+    @apply max-w-full h-auto rounded my-4;
+  }
+  hr {
+    @apply border-t-2 border-gray-200 my-6;
+  }
+}
+
+.dark .post-content {
+  blockquote {
+    @apply border-gray-600 text-gray-400;
+  }
+  pre {
+    @apply bg-gray-800 text-gray-200;
+  }
+
+  a {
+    @apply text-blue-400 hover:text-blue-600;
   }
 }
