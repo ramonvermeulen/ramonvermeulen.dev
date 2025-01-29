@@ -27,4 +27,7 @@
   blockquote {
     @apply border-l-4 pl-4 italic;
   }
+  pre {
+    @apply text-sm rounded-lg p-4;
+  }
 }
