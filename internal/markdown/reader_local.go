@@ -1,18 +1,16 @@
 package markdown
 
 import (
-	"fmt"
 	"io"
 	"os"
 )
 
-type LocalReader struct {
-	BasePath string
-}
+// LocalReader t.b.d. until API stable
+type LocalReader struct{}
 
+// Read t.b.d. until API stable
 func (lr *LocalReader) Read(target string) ([]byte, error) {
-	markdownPath := fmt.Sprintf("%s/%s.md", lr.BasePath, target)
-	file, err := os.Open(markdownPath)
+	file, err := os.Open(target)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, ErrFileNotFound

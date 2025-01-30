@@ -1,5 +1,5 @@
 <div align="center">
-    <img alt="logo" data-is-relative="true" src="static/icon/android-chrome-512x512.png" width="200" height="200"/>
+    <img alt="logo" data-is-relative="true" src="public/icon/android-chrome-512x512.png" width="200" height="200"/>
     <h1>ramonvermeulen.dev</h1>
     <a href="https://go.dev/doc/devel/release"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/ramonvermeulen/ramonvermeulen.dev"></a>
     <a href="https://github.com/ramonvermeulen/ramonvermeulen.dev"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ramonvermeulen/ramonvermeulen.dev"></a>

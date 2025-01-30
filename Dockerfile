@@ -14,7 +14,7 @@ FROM alpine:3.21 AS runner
 WORKDIR /app
 
 COPY --from=builder /main /app/main
-COPY --from=builder /app/assets/static /app/assets/static/
+COPY --from=builder /app/public /app/public/
 COPY --from=builder /app/templates /app/templates/
 
 USER 1000

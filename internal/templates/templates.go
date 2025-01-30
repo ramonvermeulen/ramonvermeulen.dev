@@ -11,6 +11,7 @@ import (
 
 var templates map[string]*template.Template
 
+// LoadTemplates t.b.d. until API stable
 func LoadTemplates() error {
 	templates = make(map[string]*template.Template)
 
@@ -26,9 +27,9 @@ func LoadTemplates() error {
 
 	for _, tmplFile := range tmplFiles {
 		tmplName := strings.TrimSuffix(filepath.Base(tmplFile), ".tmpl.html")
-		files := append(partials, tmplFile)
+		partials = append(partials, tmplFile)
 
-		t, err := template.ParseFiles(files...)
+		t, err := template.ParseFiles(partials...)
 		if err != nil {
 			return err
 		}
@@ -38,6 +39,7 @@ func LoadTemplates() error {
 	return nil
 }
 
+// RenderTemplate t.b.d. until API stable
 func RenderTemplate(w http.ResponseWriter, tmpl string, data *models.PageData) {
 	t, ok := templates[tmpl]
 	if !ok {

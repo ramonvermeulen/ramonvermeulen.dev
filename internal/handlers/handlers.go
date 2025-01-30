@@ -12,6 +12,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// StaticPageHandler t.b.d. until API stable
 func StaticPageHandler() http.HandlerFunc {
 	routeMap := map[string]struct {
 		template string
@@ -38,26 +39,31 @@ func StaticPageHandler() http.HandlerFunc {
 	}
 }
 
+// BlogPostHandler t.b.d. until API stable
 func BlogPostHandler(renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		postSlug := chi.URLParam(r, "postSlug")
-		rendered, err := renderer.Render(postSlug)
+		rendered, meta, err := renderer.Render(postSlug)
 
 		if err != nil {
-			if errors.Is(err, markdown.ErrFileNotFound) {
+			switch {
+			case errors.Is(err, markdown.ErrFileNotFound):
 				http.NotFound(w, r)
-			} else if errors.Is(err, markdown.ErrReadFailed) {
+			case errors.Is(err, markdown.ErrReadFailed):
 				http.Error(w, "Error reading or converting markdown", http.StatusInternalServerError)
-			} else {
+			default:
 				http.Error(w, "Error rendering post", http.StatusInternalServerError)
 			}
 			return
 		}
 
 		data := &models.PageData{
-			Title:   postSlug,
-			Path:    r.URL.Path,
-			Content: template.HTML(rendered),
+			Title: postSlug,
+			Path:  r.URL.Path,
+			BlogPost: &models.BlogPost{
+				Content: template.HTML(rendered),
+				Meta:    meta,
+			},
 		}
 
 		templates.RenderTemplate(w, "post", data)
