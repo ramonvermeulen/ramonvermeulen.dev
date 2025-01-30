@@ -3,7 +3,6 @@ package markdown
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/adrg/frontmatter"
@@ -21,7 +20,6 @@ type Renderer struct {
 // Render t.b.d. until API stable
 func (r *Renderer) Render(target string) (string, *models.BlogPostMeta, error) {
 	target = fmt.Sprintf("%s/%s.md", r.BasePath, target)
-	log.Print(target)
 	content, err := r.Reader.Read(target)
 	if err != nil {
 		return "", nil, err
@@ -41,5 +39,5 @@ func (r *Renderer) Render(target string) (string, *models.BlogPostMeta, error) {
 		return "", nil, err
 	}
 
-	return buf.String(), nil, nil
+	return buf.String(), &meta, nil
 }

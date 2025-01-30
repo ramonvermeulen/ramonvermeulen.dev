@@ -8,6 +8,7 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/handlers"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/markdown"
@@ -62,6 +63,8 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+
+	router.Use(middleware.Logger)
 
 	if os.Getenv("ENV") != "production" {
 		fs := http.FileServer(http.Dir(cfg.AssetURL))
