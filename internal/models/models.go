@@ -1,13 +1,19 @@
 package models
 
-import "html/template"
+import (
+	"html/template"
+	"time"
+)
 
 // PageData t.b.d. until API stable
-type PageData struct {
-	Title    string
-	Path     string
-	BlogPost *BlogPost
+type PageData[T any] struct {
+	Title   string
+	Path    string
+	Content *T
 }
+
+// NoContent t.b.d. until API stable
+type NoContent struct{}
 
 // BlogPost t.b.d. until API stable
 type BlogPost struct {
@@ -17,8 +23,8 @@ type BlogPost struct {
 
 // BlogPostMeta t.b.d. until API stable
 type BlogPostMeta struct {
-	Title       string `yaml:"title"`
-	Description string `yaml:"description"`
-	Image       string `yaml:"image"`
-	Date        string `yaml:"date"`
+	Title       string    `yaml:"title"`
+	Description string    `yaml:"description"`
+	Image       string    `yaml:"image"`
+	Date        time.Time `yaml:"date"`
 }

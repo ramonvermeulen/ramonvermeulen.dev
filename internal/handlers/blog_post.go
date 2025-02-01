@@ -5,39 +5,11 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/markdown"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
-
-	"github.com/go-chi/chi/v5"
 )
-
-// StaticPageHandler t.b.d. until API stable
-func StaticPageHandler() http.HandlerFunc {
-	routeMap := map[string]struct {
-		template string
-		title    string
-	}{
-		"/":           {"about", "About"},
-		"/experience": {"experience", "Experience"},
-		"/blog":       {"blog", "Blog"},
-	}
-
-	return func(w http.ResponseWriter, r *http.Request) {
-		route, exists := routeMap[r.URL.Path]
-		if !exists {
-			http.NotFound(w, r)
-			return
-		}
-
-		data := &models.PageData{
-			Title: route.title,
-			Path:  r.URL.Path,
-		}
-
-		templates.RenderTemplate(w, route.template, data)
-	}
-}
 
 // BlogPostHandler t.b.d. until API stable
 func BlogPostHandler(renderer *markdown.Renderer) http.HandlerFunc {
@@ -57,15 +29,15 @@ func BlogPostHandler(renderer *markdown.Renderer) http.HandlerFunc {
 			return
 		}
 
-		data := &models.PageData{
+		data := &models.PageData[models.BlogPost]{
 			Title: postSlug,
 			Path:  r.URL.Path,
-			BlogPost: &models.BlogPost{
+			Content: &models.BlogPost{
 				Content: template.HTML(rendered),
 				Meta:    meta,
 			},
 		}
 
-		templates.RenderTemplate(w, "post", data)
+		templates.RenderTemplate[models.BlogPost](w, "post", data)
 	}
 }

@@ -40,7 +40,7 @@ func LoadTemplates() error {
 }
 
 // RenderTemplate t.b.d. until API stable
-func RenderTemplate(w http.ResponseWriter, tmpl string, data *models.PageData) {
+func RenderTemplate[T any](w http.ResponseWriter, tmpl string, data *models.PageData[T]) {
 	t, ok := templates[tmpl]
 	if !ok {
 		http.Error(w, "Template not found", http.StatusInternalServerError)

@@ -1,3 +1,5 @@
+let currentTheme;
+
 function updateThemeIcon(isDarkMode) {
     const iconElement = document.querySelector('.bx');
     if (iconElement) {
@@ -10,20 +12,20 @@ function updateThemeIcon(isDarkMode) {
 }
 
 function applyTheme() {
-    const isDarkMode = localStorage.currentTheme === "dark" ||
-        (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDarkMode = currentTheme === "dark" ||
+        (!currentTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
     document.documentElement.classList.toggle("dark", isDarkMode);
     updateThemeIcon(isDarkMode);
 }
 
 function toggleTheme() {
     const isDarkMode = document.documentElement.classList.contains("dark");
-    if (isDarkMode) {
-        localStorage.currentTheme = "light";
-    } else {
-        localStorage.currentTheme = "dark";
-    }
+    currentTheme = isDarkMode ? "light" : "dark";
+    localStorage.currentTheme = currentTheme;
     applyTheme();
 }
 
-document.addEventListener("DOMContentLoaded", applyTheme);
+document.addEventListener("DOMContentLoaded", () => {
+    currentTheme = localStorage.currentTheme;
+    applyTheme();
+});

@@ -1,8 +1,10 @@
 package markdown
 
 import (
+	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 )
 
 // LocalReader t.b.d. until API stable
@@ -23,4 +25,13 @@ func (lr *LocalReader) Read(target string) ([]byte, error) {
 		return nil, ErrReadFailed
 	}
 	return content, nil
+}
+
+// List t.b.d. until API stable
+func (lr *LocalReader) List(target string) ([]string, error) {
+	fileNames, err := filepath.Glob(target)
+	if err != nil {
+		return nil, fmt.Errorf("error listing files: %w", err)
+	}
+	return fileNames, nil
 }

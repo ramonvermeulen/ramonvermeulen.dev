@@ -31,3 +31,8 @@ func (gr *GCSReader) Read(target string) ([]byte, error) {
 	}
 	return content, nil
 }
+
+// List t.b.d. until API stable
+func (gr *GCSReader) List(target string) ([]string, error) {
+	return nil, nil
+}
