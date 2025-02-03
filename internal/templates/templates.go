@@ -29,7 +29,9 @@ func LoadTemplates() error {
 		tmplName := strings.TrimSuffix(filepath.Base(tmplFile), ".tmpl.html")
 		partials = append(partials, tmplFile)
 
-		t, err := template.ParseFiles(partials...)
+		t, err := template.New("").Funcs(template.FuncMap{
+			"mod": func(a, b int) int { return a % b },
+		}).ParseFiles(partials...)
 		if err != nil {
 			return err
 		}

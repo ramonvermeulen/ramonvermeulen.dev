@@ -1,28 +1,30 @@
 {{define "header"}}
-  <header class="flex justify-between items-center mt-10">
-    <a href="/" class="text-2xl"><span class="font-bold">ramonvermeulen</span>.dev</a>
-    <nav class="lg:flex">
-      <ul class="flex space-x-6 text-lg items-center dark:text-gray-200">
-        <li>
+  <header class="flex flex-col md:flex-row justify-between items-center mt-10 px-4 lg:px-0">
+    <div class="flex justify-between items-center w-full md:w-auto">
+      <a href="/" class="text-2xl md:text-left text-center py-2"><span class="font-bold">ramonvermeulen</span>.dev</a>
+      <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none py-2">
+        &#9776;
+      </button>
+    </div>
+    <nav id="menu" class="w-full md:w-auto hidden md:flex">
+      <ul class="flex flex-col md:flex-row md:space-x-6 text-lg items-start md:items-center dark:text-gray-200">
+        <li class="md:mb-0 mb-2">
           <a href="/"
              class="{{if eq .Path "/"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >About</a
-          >
+          >About</a>
         </li>
-        <li>
+        <li class="md:mb-0 mb-2">
           <a href="/experience"
              class="{{if eq .Path "/experience"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >Experience</a
-          >
+          >Experience</a>
         </li>
-        <li>
+        <li class="md:mb-0 mb-2">
           <a href="/blog"
              class="{{if eq .Path "/blog"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >Blog</a
-          >
+          >Blog</a>
         </li>
-        <li>
-          <div class="top-10 right-10 cursor-pointer bg-gray-300 hover:bg-gray-500 rounded-full w-10 h-10 flex items-center justify-center"
+        <li class="md:mb-0 mb-2">
+          <div class="cursor-pointer bg-gray-300 hover:bg-gray-500 rounded-full w-10 h-10 flex items-center justify-center"
                onclick="toggleTheme()">
             <i class='bx bxs-moon text-2xl text-white leading-none'></i>
           </div>

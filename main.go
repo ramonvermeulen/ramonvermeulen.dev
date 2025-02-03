@@ -72,6 +72,7 @@ func main() {
 		log.Printf("Serving static files from %s instead of CDN", cfg.AssetURL)
 	}
 
+	router.Get("/blog", handlers.BlogIndexHandler(renderer))
 	router.Get("/blog/{postSlug:[a-z-]+}", handlers.BlogPostHandler(renderer))
 	router.Get("/*", handlers.StaticPageHandler())
 

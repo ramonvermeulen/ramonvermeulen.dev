@@ -10,8 +10,8 @@ import (
 // LocalReader t.b.d. until API stable
 type LocalReader struct{}
 
-// Read t.b.d. until API stable
-func (lr *LocalReader) Read(target string) ([]byte, error) {
+// Open t.b.d. until API stable
+func (lr *LocalReader) Open(target string) (io.ReadCloser, error) {
 	file, err := os.Open(target)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -19,17 +19,12 @@ func (lr *LocalReader) Read(target string) ([]byte, error) {
 		}
 		return nil, ErrReadFailed
 	}
-	defer file.Close()
-	content, err := io.ReadAll(file)
-	if err != nil {
-		return nil, ErrReadFailed
-	}
-	return content, nil
+	return file, nil
 }
 
 // List t.b.d. until API stable
-func (lr *LocalReader) List(target string) ([]string, error) {
-	fileNames, err := filepath.Glob(target)
+func (lr *LocalReader) List(prefix string) ([]string, error) {
+	fileNames, err := filepath.Glob(fmt.Sprintf("%s/*.md", prefix))
 	if err != nil {
 		return nil, fmt.Errorf("error listing files: %w", err)
 	}

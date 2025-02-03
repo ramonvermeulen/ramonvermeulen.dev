@@ -1,6 +1,6 @@
 {{define "content"}}
-  <div class="mt-16 flex flex-col">
-    <nav class="mb-4">
+  <div class="lg:mt-16 mt-4 flex flex-col">
+    <nav class="mb-4 px-4 lg:px-0">
       <a href="/blog"
          class="text-lg font-medium flex items-center hover:text-gray-700 hover:underline dark:hover:text-white group transition-transform duration-200 ease-in-out transform group-hover:-translate-x-1">
         <svg class="w-4 h-4 mr-1 transition-transform duration-200 ease-in-out transform group-hover:-translate-x-1"
@@ -20,10 +20,10 @@
             Vermeulen</p>
         </div>
       </div>
-      <p class="italic font-bold text-lg mt-4">{{ .Content.Meta.Description }}</p>
+      <p class="italic font-bold text-lg mt-4 mx-4 lg:mx-0">{{ .Content.Meta.Description }}</p>
     </section>
-    <hr class="my-8 border-t-2 border-gray-300">
-    <section class="post-content">
+    <hr class="my-8 border-t-2 border-gray-300 mx-4 lg:mx-0">
+    <section class="post-content mx-4 lg:mx-0">
       <article>
           {{ .Content.Content }}
       </article>

@@ -15,6 +15,11 @@ type PageData[T any] struct {
 // NoContent t.b.d. until API stable
 type NoContent struct{}
 
+// BlogIndex t.b.d. until API stable
+type BlogIndex struct {
+	Posts []*BlogPostMeta
+}
+
 // BlogPost t.b.d. until API stable
 type BlogPost struct {
 	Meta    *BlogPostMeta
@@ -27,4 +32,5 @@ type BlogPostMeta struct {
 	Description string    `yaml:"description"`
 	Image       string    `yaml:"image"`
 	Date        time.Time `yaml:"date"`
+	Slug        string
 }

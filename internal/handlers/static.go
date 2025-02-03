@@ -15,7 +15,6 @@ func StaticPageHandler() http.HandlerFunc {
 	}{
 		"/":           {"about", "About"},
 		"/experience": {"experience", "Experience"},
-		"/blog":       {"blog", "Blog"},
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

@@ -1,7 +1,9 @@
 package markdown
 
+import "io"
+
 // FileReader t.b.d. until API stable
 type FileReader interface {
-	Read(target string) ([]byte, error)
-	List(target string) ([]string, error)
+	Open(target string) (io.ReadCloser, error)
+	List(prefix string) ([]string, error)
 }

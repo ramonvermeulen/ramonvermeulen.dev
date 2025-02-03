@@ -1,14 +1,32 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/markdown"
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
 // BlogIndexHandler t.b.d. until API stable
 func BlogIndexHandler(renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//			posts, err := renderer.List()
+		posts, err := renderer.List()
+		if err != nil {
+			log.Printf("Error listing posts: %v", err)
+			http.Error(w, "Error listing posts", http.StatusInternalServerError)
+			return
+		}
+
+		data := &models.PageData[models.BlogIndex]{
+			Title: "Blog",
+			Path:  r.URL.Path,
+			Content: &models.BlogIndex{
+				Posts: posts,
+			},
+		}
+
+		templates.RenderTemplate(w, "blog", data)
 	}
 }
