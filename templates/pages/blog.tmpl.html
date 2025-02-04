@@ -1,5 +1,5 @@
 {{define "content"}}
-<div class="lg:mt-16 mt-4 flex flex-1 flex-col px-4 lg:px-0">
+<div class="lg:mt-16 mt-4 flex flex-1 flex-col">
   {{range $index, $post := .Content.Posts}}
     <div class="post">
       <a href="/blog/{{$post.Slug}}" class="flex flex-col md:flex-row {{if mod $index 2}}md:flex-row-reverse{{end}}">
@@ -17,7 +17,7 @@
         </div>
       </a>
     </div>
-    <hr class="border-t border-gray-300 my-12">
+    <hr class="border-t border-gray-300 lg:my-12 my-6">
   {{end}}
 </div>
 {{end}}
