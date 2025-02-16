@@ -26,14 +26,6 @@ ramonvermeulen.dev
 └───templates       // HTML templates (go templates)
 ```
 
-## Environment Variables
-
-| Environment Variable | Description                                                                                                         | Required                      | Default Value    |
-|----------------------|---------------------------------------------------------------------------------------------------------------------|-------------------------------|------------------|
-| `ENV`                | Specifies the target environment. In production, the application uses a GCS bucket instead of the local filesystem. | No                            | `development`    |
-| `POSTS_BASE_PATH`    | Base path for posts.                                                                                                | No                            | `./static/posts` |
-| `GCS_POSTS_BUCKET`   | Name of the GCS bucket to use for posts. Required only if `ENV` is set to `production`.                             | Yes, if `ENV` == `production` |                  |
-
 ## Local Development
 
 ### Install dependencies
