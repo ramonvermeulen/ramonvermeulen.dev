@@ -15,18 +15,18 @@ var templates map[string]*template.Template
 func LoadTemplates() error {
 	templates = make(map[string]*template.Template)
 
-	partials, err := filepath.Glob("templates/partials/*.tmpl.html")
+	partials, err := filepath.Glob("templates/partials/*.gohtml")
 	if err != nil {
 		return err
 	}
 
-	tmplFiles, err := filepath.Glob("templates/pages/*.tmpl.html")
+	tmplFiles, err := filepath.Glob("templates/pages/*.gohtml")
 	if err != nil {
 		return err
 	}
 
 	for _, tmplFile := range tmplFiles {
-		tmplName := strings.TrimSuffix(filepath.Base(tmplFile), ".tmpl.html")
+		tmplName := strings.TrimSuffix(filepath.Base(tmplFile), ".gohtml")
 		partials = append(partials, tmplFile)
 
 		t, err := template.New("").Funcs(template.FuncMap{

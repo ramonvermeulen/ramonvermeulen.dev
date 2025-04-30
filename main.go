@@ -68,12 +68,17 @@ func main() {
 	if cfg.Env == "dev" {
 		fs := http.FileServer(http.Dir("./public"))
 		router.Handle("GET /public/*", http.StripPrefix("/public", fs))
-		log.Printf("Serving static files from %s instead of CDN", cfg.CdnURL)
 	}
 
 	router.Get("/blog", handlers.BlogIndexHandler(cfg, renderer))
 	router.Get("/blog/{postSlug:[a-z-]+}", handlers.BlogPostHandler(cfg, renderer))
 	router.Get("/*", handlers.StaticPageHandler(cfg))
+	router.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte("pong")); err != nil {
+			log.Printf("Error writing response: %v", err)
+		}
+	})
 
 	log.Println("Server started on :8080")
 	log.Fatal(http.ListenAndServe(":8080", router))

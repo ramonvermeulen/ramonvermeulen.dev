@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{.Title}} | ramonvermeulen.dev</title>
     <script>
-      (function () {
-        const isDarkMode = localStorage.currentTheme === "dark" ||
-          (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
-        if (isDarkMode) {
-          document.documentElement.classList.add("dark");
-        }
-      })();
+        (function () {
+            const isDarkMode = localStorage.currentTheme === "dark" ||
+                (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
+            if (isDarkMode) {
+                document.documentElement.classList.add("dark");
+            }
+        })();
     </script>
     <script src="{{.CdnURL}}/js/theme.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="{{.CdnURL}}/icon/apple-touch-icon.png">
@@ -29,8 +29,8 @@
     />
   </head>
   <body
-    style="background-image: url('{{.CdnURL}}/img/background.png');"
-    class="bg-cover bg-fixed bg-center bg-no-repeat font-inter bg-white dark:bg-black text-black dark:text-white transition-colors duration-300"
+          style="background-image: url('{{.CdnURL}}/img/background.png');"
+          class="bg-cover bg-fixed bg-center bg-no-repeat font-inter bg-white dark:bg-black text-black dark:text-white transition-colors duration-300"
   >
   <div class="max-w-[900px] mx-auto min-h-screen flex flex-col lg:px-0 px-4">
     <div class="header">{{template "header" .}}</div>
