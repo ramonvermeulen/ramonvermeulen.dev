@@ -60,12 +60,20 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       # part is only triggered on push to main (e.g. merge of PR)
+      - name: Update manifest for nonprod
+        if: github.event_name == 'push'
+        run: sed -i 's|./static/icon|https://cdn-nonprod.ramonvermeulen.dev/icon|g' public/icon/manifest.webmanifest
+
       - name: Upload DAGs to nonprod
         if: github.event_name == 'push'
         run: |
           gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_NONPROD }} --delete-unmatched-destination-objects --recursive
 
       # part is only triggered on manual release (e.g. via workflow_dispatch)
+      - name: Update manifest for prod
+        if: github.event_name == 'workflow_dispatch'
+        run: sed -i 's|./static/icon|https://cdn.ramonvermeulen.dev/icon|g' public/icon/manifest.webmanifest
+
       - name: Upload DAGs to prod
         if: github.event_name == 'workflow_dispatch'
         env:
