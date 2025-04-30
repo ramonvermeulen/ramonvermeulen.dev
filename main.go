@@ -66,7 +66,7 @@ func main() {
 	router.Use(middleware.Logger)
 
 	if cfg.Env == "dev" {
-		fs := http.FileServer(http.Dir(cfg.CdnURL))
+		fs := http.FileServer(http.Dir("./public"))
 		router.Handle("GET /public/*", http.StripPrefix("/public", fs))
 		log.Printf("Serving static files from %s instead of CDN", cfg.CdnURL)
 	}

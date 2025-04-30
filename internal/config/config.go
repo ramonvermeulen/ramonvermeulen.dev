@@ -30,7 +30,7 @@ func New() *Config {
 		log.Fatalf("error: CDN_URL env variable is required in higher environments")
 	}
 	if cdnURL == "" {
-		cdnURL = "./public"
+		cdnURL = "http://localhost:8080/public"
 		log.Printf("warn: CDN_URL env variable not set, defaulting to %s", cdnURL)
 	}
 
