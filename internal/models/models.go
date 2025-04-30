@@ -9,6 +9,7 @@ import (
 type PageData[T any] struct {
 	Title   string
 	Path    string
+	CdnURL  string
 	Content *T
 }
 

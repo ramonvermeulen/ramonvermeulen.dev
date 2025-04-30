@@ -6,13 +6,14 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/markdown"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
 // BlogPostHandler t.b.d. until API stable
-func BlogPostHandler(renderer *markdown.Renderer) http.HandlerFunc {
+func BlogPostHandler(cfg *config.Config, renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		postSlug := chi.URLParam(r, "postSlug")
 		rendered, meta, err := renderer.Render(postSlug)
@@ -30,8 +31,9 @@ func BlogPostHandler(renderer *markdown.Renderer) http.HandlerFunc {
 		}
 
 		data := &models.PageData[models.BlogPost]{
-			Title: postSlug,
-			Path:  r.URL.Path,
+			Title:  postSlug,
+			Path:   r.URL.Path,
+			CdnURL: cfg.CdnURL,
 			Content: &models.BlogPost{
 				Content: template.HTML(rendered),
 				Meta:    meta,

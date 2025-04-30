@@ -14,12 +14,12 @@
         }
       })();
     </script>
-    <script src="/public/js/theme.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="/public/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/public/icon/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="/public/css/tailwind.min.css"/>
+    <script src="{{.CdnURL}}/public/js/theme.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{.CdnURL}}/public/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{.CdnURL}}/public/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{.CdnURL}}/public/icon/favicon-16x16.png">
+    <link rel="manifest" href="{{.CdnURL}}/site.webmanifest">
+    <link rel="stylesheet" href="{{.CdnURL}}/public/css/tailwind.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -29,7 +29,7 @@
     />
   </head>
   <body
-          class="bg-[url('/public/img/background.png')] bg-cover bg-fixed bg-center bg-no-repeat font-inter bg-white dark:bg-black text-black dark:text-white transition-colors duration-300"
+          class="bg-[url('{{.CdnURL}}/public/img/background.png')] bg-cover bg-fixed bg-center bg-no-repeat font-inter bg-white dark:bg-black text-black dark:text-white transition-colors duration-300"
   >
   <div class="max-w-[900px] mx-auto min-h-screen flex flex-col lg:px-0 px-4">
     <div class="header">{{template "header" .}}</div>

@@ -8,7 +8,7 @@ import (
 // Config t.b.d. until API stable
 type Config struct {
 	Environment  string
-	AssetURL     string
+	CdnURL       string
 	GCSBucket    string
 	PostBasePath string
 }
@@ -20,18 +20,19 @@ func New() *Config {
 		environment = "development"
 		log.Printf("warn: ENV environment variable not set, defaulting to %s", environment)
 	}
-	isProd := environment == "production"
+	isDev := environment == "development"
 
-	assetURL := os.Getenv("ASSET_URL")
-	if assetURL == "" && isProd {
-		log.Fatalf("error: ASSET_URL environment variable is required in production")
+	cdnURL := os.Getenv("CDN_URL")
+	if cdnURL == "" && !isDev {
+		log.Fatalf("error: CDN_URL environment variable is required in higher environments")
 	} else {
-		assetURL = "./public"
+		cdnURL = "./public"
+		log.Printf("warn: CDN_URL environment variable not set, defaulting to %s", cdnURL)
 	}
 
 	gcsBucket := os.Getenv("GCS_BUCKET")
-	if gcsBucket == "" && isProd {
-		log.Fatalf("error: GCS_BUCKET environment variable is required in production")
+	if gcsBucket == "" && !isDev {
+		log.Fatalf("error: GCS_BUCKET environment variable is required in higher environments")
 	}
 
 	postBasePath := os.Getenv("POSTS_BASE_PATH")
@@ -42,7 +43,7 @@ func New() *Config {
 
 	return &Config{
 		Environment:  environment,
-		AssetURL:     assetURL,
+		CdnURL:       cdnURL,
 		GCSBucket:    gcsBucket,
 		PostBasePath: postBasePath,
 	}

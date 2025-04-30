@@ -4,13 +4,14 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/markdown"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
 // BlogIndexHandler t.b.d. until API stable
-func BlogIndexHandler(renderer *markdown.Renderer) http.HandlerFunc {
+func BlogIndexHandler(cfg *config.Config, renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		posts, err := renderer.List()
 		if err != nil {
@@ -20,8 +21,9 @@ func BlogIndexHandler(renderer *markdown.Renderer) http.HandlerFunc {
 		}
 
 		data := &models.PageData[models.BlogIndex]{
-			Title: "Blog",
-			Path:  r.URL.Path,
+			Title:  "Blog",
+			Path:   r.URL.Path,
+			CdnURL: cfg.CdnURL,
 			Content: &models.BlogIndex{
 				Posts: posts,
 			},

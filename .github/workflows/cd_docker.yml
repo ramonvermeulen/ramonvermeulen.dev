@@ -5,16 +5,18 @@ on:
     tags:
       - "**"
 
+# todo(ramon) set-up AR + Github secrets for docker CD to work
 env:
-  IMAGE_NAME: ""
-  PROJECT_ID: ""
+  IMAGE_NAME: "personal-website"
   AR_REPO_LOCATION: ""
-  AR_URL: ""
-  WORKLOAD_IDENTITY_PROVIDER: ""
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 jobs:
   build:
-    name: Build Docker Image
+    name: Build And Push Docker Image
     runs-on: ubuntu-latest
 
     permissions:
@@ -32,8 +34,8 @@ jobs:
       - name: Authenticate gcloud
         uses: google-github-actions/auth@v2
         with:
-          project_id: "${{ env.PROJECT_ID }}"
-          workload_identity_provider: "${{ env.WORKLOAD_IDENTITY_PROVIDER }}"
+          project_id: "${{ secrets.PROJECT_ID }}"
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
 
       - name: Set-up gcloud sdk
         uses: google-github-actions/setup-gcloud@v2
@@ -45,10 +47,13 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ env.AR_REPO_LOCATION }}-docker.pkg.dev --quiet
 
-      - name: Docker build
-        run: |
-          docker build -t "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}" ./
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Docker push
-        run: |
-          docker push "${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}"
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        if: contains(github.ref, 'main')
+        with:
+          push: true
+          tags: ${{ secrets.AR_URL }}/${{ env.IMAGE_NAME }}:${{ steps.git_tag.outputs.tag }}
+

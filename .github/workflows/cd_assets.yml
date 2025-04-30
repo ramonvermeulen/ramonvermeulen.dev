@@ -1,0 +1,73 @@
+name: Deploy CDN Assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select the deployment environment"
+        required: true
+        type: choice
+        options:
+          - nonprod
+          - prod
+  push:
+    branches:
+      - main
+    paths:
+      - "assets/**"
+      - "public/**"
+
+env:
+  CDN_BUCKET_NONPROD: "cdn-nonprod.ramonvermeulen.dev"
+  CDN_BUCKET_PROD: "cdn.ramonvermeulen.dev"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  deploy_cdn_assets:
+    name: Deploy Assets to CDN
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Authenticate gcloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.PROJECT_ID }}"
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # part is only triggered on push to main (e.g. merge of PR)
+      - name: Upload DAGs to nonprod
+        if: github.event_name == 'push'
+        run: |
+          gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_NONPROD }} --delete-unmatched-destination-objects --recursive
+
+      # part is only triggered on manual release (e.g. via workflow_dispatch)
+      - name: Upload DAGs to prod
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          CDN_BUCKET: ${{ github.event.inputs.environment == 'prod' && env.CDN_BUCKET_PROD || env.CDN_BUCKET_NONPROD }}
+        run: |
+          gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_PROD }} --delete-unmatched-destination-objects --recursive

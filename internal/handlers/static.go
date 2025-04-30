@@ -3,12 +3,13 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
 // StaticPageHandler t.b.d. until API stable
-func StaticPageHandler() http.HandlerFunc {
+func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 	routeMap := map[string]struct {
 		template string
 		title    string
@@ -28,6 +29,7 @@ func StaticPageHandler() http.HandlerFunc {
 			Title:   route.title,
 			Path:    r.URL.Path,
 			Content: &models.NoContent{},
+			CdnURL:  cfg.CdnURL,
 		}
 
 		templates.RenderTemplate[models.NoContent](w, route.template, data)
