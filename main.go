@@ -17,7 +17,7 @@ import (
 )
 
 func newFileReader(cfg *config.Config) (markdown.FileReader, error) {
-	if cfg.Environment == "production" {
+	if cfg.Env != "dev" {
 		ctx := context.Background()
 		client, err := storage.NewClient(ctx)
 		if err != nil {
@@ -65,7 +65,7 @@ func main() {
 
 	router.Use(middleware.Logger)
 
-	if cfg.Environment == "development" {
+	if cfg.Env == "dev" {
 		fs := http.FileServer(http.Dir(cfg.CdnURL))
 		router.Handle("GET /public/*", http.StripPrefix("/public", fs))
 		log.Printf("Serving static files from %s instead of CDN", cfg.CdnURL)

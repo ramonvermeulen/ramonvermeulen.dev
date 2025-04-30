@@ -16,6 +16,7 @@ on:
     paths:
       - "assets/**"
       - "public/**"
+      - "templates/**" # might look weird, but templates require the minified css to be rebuilt
 
 env:
   CDN_BUCKET_NONPROD: "cdn-nonprod.ramonvermeulen.dev"
