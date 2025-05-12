@@ -7,8 +7,10 @@ import (
 	"strings"
 
 	"github.com/adrg/frontmatter"
+	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 	"github.com/yuin/goldmark"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
 )
 
 // Renderer t.b.d. until API stable
@@ -62,4 +64,24 @@ func (r *Renderer) List() ([]*models.BlogPostMeta, error) {
 		posts = append(posts, &meta)
 	}
 	return posts, nil
+}
+
+// NewRenderer t.b.d. until API stable
+func NewRenderer(cfg *config.Config) (*Renderer, error) {
+	reader, err := NewFileReader(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Renderer{
+		Reader: reader,
+		Markdown: goldmark.New(
+			goldmark.WithExtensions(
+				highlighting.NewHighlighting(
+					highlighting.WithStyle("nord"),
+				),
+			),
+		),
+		BasePath: cfg.PostBasePath,
+	}, nil
 }
