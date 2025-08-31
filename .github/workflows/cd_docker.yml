@@ -5,11 +5,6 @@ on:
     tags:
       - "**"
 
-# todo(ramon) set-up AR + Github secrets for docker CD to work
-env:
-  IMAGE_NAME: "personal-website"
-  AR_REPO_LOCATION: ""
-
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
@@ -25,35 +20,35 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Authenticate gcloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: "${{ secrets.WIF_PROJECT_ID }}"
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
 
       - name: Get git tag
         uses: dawidd6/action-get-tag@v1
         id: tag
 
-      - name: Authenticate gcloud
-        uses: google-github-actions/auth@v2
-        with:
-          project_id: "${{ secrets.PROJECT_ID }}"
-          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
-
       - name: Set-up gcloud sdk
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Use gcloud CLI
-        run: "gcloud info"
-
       - name: Docker auth
         run: |
-          gcloud auth configure-docker ${{ env.AR_REPO_LOCATION }}-docker.pkg.dev --quiet
+          gcloud auth configure-docker ${{ secrets.AR_LOCATION }}-docker.pkg.dev --quiet
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # part is only triggered on a tag push (e.g. via GH release)
       - name: Build and push
         uses: docker/build-push-action@v6
-        if: contains(github.ref, 'main')
+        if: contains(github.ref, 'refs/tags/')
         with:
           push: true
-          tags: ${{ secrets.AR_URL }}/${{ env.IMAGE_NAME }}:${{ steps.git_tag.outputs.tag }}
+          platforms: linux/amd64
+          tags: ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
 
