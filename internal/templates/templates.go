@@ -10,6 +10,10 @@ import (
 )
 
 var templates map[string]*template.Template
+var devMode bool
+
+// SetDevMode enables template reloading on each render in development.
+func SetDevMode(enabled bool) { devMode = enabled }
 
 // LoadTemplates t.b.d. until API stable
 func LoadTemplates() error {
@@ -43,6 +47,13 @@ func LoadTemplates() error {
 
 // RenderTemplate t.b.d. until API stable
 func RenderTemplate[T any](w http.ResponseWriter, tmpl string, data *models.PageData[T]) {
+	if devMode {
+		if err := LoadTemplates(); err != nil {
+			http.Error(w, "Error reloading templates", http.StatusInternalServerError)
+			return
+		}
+	}
+
 	t, ok := templates[tmpl]
 	if !ok {
 		http.Error(w, "Template not found", http.StatusInternalServerError)

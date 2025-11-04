@@ -27,6 +27,7 @@ func main() {
 	router.Use(middleware.Logger)
 
 	if cfg.Env == "dev" {
+		templates.SetDevMode(true)
 		fs := http.FileServer(http.Dir("./public"))
 		router.Handle("GET /public/*", http.StripPrefix("/public", fs))
 	}
