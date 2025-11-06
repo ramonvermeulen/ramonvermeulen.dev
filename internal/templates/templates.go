@@ -35,6 +35,15 @@ func LoadTemplates() error {
 
 		t, err := template.New("").Funcs(template.FuncMap{
 			"mod": func(a, b int) int { return a % b },
+			"add": func(a, b int) int { return a + b },
+			"len": func(v interface{}) int {
+				switch val := v.(type) {
+				case []*models.Position:
+					return len(val)
+				default:
+					return 0
+				}
+			},
 		}).ParseFiles(partials...)
 		if err != nil {
 			return err

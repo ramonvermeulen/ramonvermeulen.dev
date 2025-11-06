@@ -2,60 +2,27 @@
   <section class="flex flex-col flex-1 mt-4 lg:mt-16">
     <h1 class="text-7xl font-light"><span class="font-bold">Experience</span></h1>
     <div class="relative mt-8">
-
+      {{range $index, $position := .Content.Positions}}
       <article class="relative ml-4 pl-10">
+        {{if ne $index (len $.Content.Positions | add -1)}}
         <p class="absolute top-1 -bottom-1 left-0 w-px bg-black dark:bg-white"></p>
+        {{end}}
         <span class="absolute -left-2 top-1 h-4 w-4 rounded-full bg-black dark:bg-white"></span>
         <div class="md:grid md:grid-cols-[160px_1fr]">
           <div class="hidden md:block pt-1">
             <p class="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-              <span>Dec 2021</span><span class="mx-1">-</span><span class="has-phosphor-icon">Present</span>
+              <span>{{$position.StartDate}}</span><span class="mx-1">-</span><span class="has-phosphor-icon">{{$position.EndDate}}</span>
             </p>
           </div>
-          <div class="space-y-1 pb-8">
-            <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400"><span>Dec 2021 - Present</span></p>
-            <p class="font-semibold text-neutral-900 dark:text-neutral-100">Cloud Data Engineer</p>
-            <p class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">Xebia</p>
-            <div class="prose prose-sm dark:prose-invert max-w-none"><p>To be determined</p></div>
+          <div class="space-y-1{{if ne $index (len $.Content.Positions | add -1)}} pb-8{{end}}">
+            <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400"><span>{{$position.StartDate}} - {{$position.EndDate}}</span></p>
+            <p class="font-semibold text-neutral-900 dark:text-neutral-100">{{$position.Title}}</p>
+            <p class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">{{$position.Company}}</p>
+            <div class="prose prose-sm dark:prose-invert max-w-none"><p>{{$position.Description}}</p></div>
           </div>
         </div>
       </article>
-
-      <article class="relative ml-4 pl-10">
-        <p class="absolute top-1 -bottom-1 left-0 w-px bg-black dark:bg-white"></p>
-        <span class="absolute -left-2 top-1 h-4 w-4 rounded-full bg-black dark:bg-white"></span>
-        <div class="md:grid md:grid-cols-[160px_1fr]">
-          <div class="hidden md:block pt-1">
-            <p class="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-              <span>Nov 2020</span><span class="mx-1">-</span><span class="has-phosphor-icon">Nov 2021</span>
-            </p>
-          </div>
-          <div class="space-y-1 pb-8">
-            <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400"><span>Nov 2020 - Nov 2021</span></p>
-            <p class="font-semibold text-neutral-900 dark:text-neutral-100">Software Engineer</p>
-            <p class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">ShoppingMinds</p>
-            <div class="prose prose-sm dark:prose-invert max-w-none"><p>To be determined</p></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="relative ml-4 pl-10">
-        <span class="absolute -left-2 top-1 h-4 w-4 rounded-full bg-black dark:bg-white"></span>
-        <div class="md:grid md:grid-cols-[160px_1fr]">
-          <div class="hidden md:block pt-1">
-            <p class="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-              <span>Feb 2019</span><span class="mx-1">-</span><span class="has-phosphor-icon">Oct 2020</span>
-            </p>
-          </div>
-          <div class="space-y-1">
-            <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400"><span>Feb 2019 - Oct 2020</span></p>
-            <p class="font-semibold text-neutral-900 dark:text-neutral-100">Software Engineer (Mobile Apps)</p>
-            <p class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">Coffee IT</p>
-            <div class="prose prose-sm dark:prose-invert max-w-none"><p>To be determined</p></div>
-          </div>
-        </div>
-      </article>
-
+      {{end}}
     </div>
   </section>
 {{end}}

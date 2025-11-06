@@ -14,8 +14,7 @@ func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 		template string
 		title    string
 	}{
-		"/":           {"about", "About"},
-		"/experience": {"experience", "Experience"},
+		"/": {"about", "About"},
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

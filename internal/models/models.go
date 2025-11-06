@@ -35,3 +35,18 @@ type BlogPostMeta struct {
 	Date        time.Time `yaml:"date"`
 	Slug        string
 }
+
+// Experience t.b.d. until API stable
+type Experience struct {
+	Positions []*Position
+}
+
+// Position t.b.d. until API stable
+type Position struct {
+	StartDate   string
+	EndDate     string
+	Title       string
+	Company     string
+	Description string
+	IsCurrent   bool
+}

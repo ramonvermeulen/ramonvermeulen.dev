@@ -35,6 +35,7 @@ func main() {
 	router.Get("/ping", handlers.PongHandler())
 	router.Get("/blog", handlers.BlogIndexHandler(cfg, renderer))
 	router.Get("/blog/{postSlug:[a-z-]+}", handlers.BlogPostHandler(cfg, renderer))
+	router.Get("/experience", handlers.ExperienceHandler(cfg))
 	router.Get("/*", handlers.StaticPageHandler(cfg))
 
 	log.Println("Server started on :8080")
