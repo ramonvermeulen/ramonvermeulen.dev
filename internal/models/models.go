@@ -38,6 +38,13 @@ type BlogPostMeta struct {
 
 // Experience t.b.d. until API stable
 type Experience struct {
+	Companies []*Company
+}
+
+// Company t.b.d. until API stable
+type Company struct {
+	Name      string
+	Website   string
 	Positions []*Position
 }
 
@@ -46,7 +53,6 @@ type Position struct {
 	StartDate   string
 	EndDate     string
 	Title       string
-	Company     string
 	Description string
 	IsCurrent   bool
 }

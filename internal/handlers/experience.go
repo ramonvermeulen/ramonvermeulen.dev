@@ -11,30 +11,48 @@ import (
 // ExperienceHandler handles the experience page with static position data
 func ExperienceHandler(cfg *config.Config) http.HandlerFunc {
 	experienceData := &models.Experience{
-		Positions: []*models.Position{
+		Companies: []*models.Company{
 			{
-				StartDate:   "Dec 2021",
-				EndDate:     "Present",
-				Title:       "Cloud Data Engineer",
-				Company:     "Xebia",
-				Description: "To be determined",
-				IsCurrent:   true,
+				Name: "Xebia",
+				Positions: []*models.Position{
+					{
+						StartDate:   "Oct 2025",
+						EndDate:     "Present",
+						Title:       "Cloud Engineer",
+						Description: "To be determined",
+						IsCurrent:   true,
+					},
+					{
+						StartDate:   "Dec 2021",
+						EndDate:     "Oct 2025",
+						Title:       "Data Engineer",
+						Description: "To be determined",
+						IsCurrent:   false},
+				},
 			},
 			{
-				StartDate:   "Nov 2020",
-				EndDate:     "Nov 2021",
-				Title:       "Software Engineer",
-				Company:     "ShoppingMinds",
-				Description: "To be determined",
-				IsCurrent:   false,
+				Name: "ShoppingMinds",
+				Positions: []*models.Position{
+					{
+						StartDate:   "Nov 2020",
+						EndDate:     "Nov 2021",
+						Title:       "Software Engineer",
+						Description: "To be determined",
+						IsCurrent:   false,
+					},
+				},
 			},
 			{
-				StartDate:   "Feb 2019",
-				EndDate:     "Oct 2020",
-				Title:       "Software Engineer (Mobile Apps)",
-				Company:     "Coffee IT",
-				Description: "To be determined",
-				IsCurrent:   false,
+				Name: "Coffee IT",
+				Positions: []*models.Position{
+					{
+						StartDate:   "Feb 2019",
+						EndDate:     "Oct 2020",
+						Title:       "Software Engineer (Mobile Apps)",
+						Description: "To be determined",
+						IsCurrent:   false,
+					},
+				},
 			},
 		},
 	}

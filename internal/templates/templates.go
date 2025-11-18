@@ -9,8 +9,10 @@ import (
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/models"
 )
 
-var templates map[string]*template.Template
-var devMode bool
+var (
+	templates map[string]*template.Template
+	devMode   bool
+)
 
 // SetDevMode enables template reloading on each render in development.
 func SetDevMode(enabled bool) { devMode = enabled }
@@ -34,6 +36,7 @@ func LoadTemplates() error {
 		partials = append(partials, tmplFile)
 
 		t, err := template.New("").Funcs(template.FuncMap{
+			"sub": func(a, b int) int { return a - b },
 			"mod": func(a, b int) int { return a % b },
 			"add": func(a, b int) int { return a + b },
 			"len": func(v interface{}) int {
