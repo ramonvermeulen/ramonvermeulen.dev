@@ -34,7 +34,7 @@ func BlogPostHandler(cfg *config.Config, renderer *markdown.Renderer) http.Handl
 			Title:  postSlug,
 			Path:   r.URL.Path,
 			CdnURL: cfg.CdnURL,
-			Content: &models.BlogPost{
+			Content: models.BlogPost{
 				Content: template.HTML(rendered),
 				Meta:    meta,
 			},

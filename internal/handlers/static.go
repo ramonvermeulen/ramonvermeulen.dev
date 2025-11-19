@@ -27,7 +27,7 @@ func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 		data := &models.PageData[models.NoContent]{
 			Title:   route.title,
 			Path:    r.URL.Path,
-			Content: &models.NoContent{},
+			Content: models.NoContent{},
 			CdnURL:  cfg.CdnURL,
 		}
 

@@ -24,7 +24,7 @@ func BlogIndexHandler(cfg *config.Config, renderer *markdown.Renderer) http.Hand
 			Title:  "Blog",
 			Path:   r.URL.Path,
 			CdnURL: cfg.CdnURL,
-			Content: &models.BlogIndex{
+			Content: models.BlogIndex{
 				Posts: posts,
 			},
 		}

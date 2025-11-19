@@ -10,7 +10,7 @@ type PageData[T any] struct {
 	Title   string
 	Path    string
 	CdnURL  string
-	Content *T
+	Content T
 }
 
 // NoContent t.b.d. until API stable
@@ -36,23 +36,14 @@ type BlogPostMeta struct {
 	Slug        string
 }
 
-// Experience t.b.d. until API stable
-type Experience struct {
-	Companies []*Company
-}
-
-// Company t.b.d. until API stable
-type Company struct {
-	Name      string
-	Website   string
-	Positions []*Position
-}
-
 // Position t.b.d. until API stable
 type Position struct {
-	StartDate   string
-	EndDate     string
-	Title       string
-	Description string
-	IsCurrent   bool
+	CompanyName    string
+	CompanyWebsite string
+	StartDate      string
+	EndDate        string
+	Title          string
+	Location       string
+	Description    string
+	IsCurrent      bool
 }

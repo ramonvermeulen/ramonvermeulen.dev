@@ -1,34 +1,42 @@
 {{define "content"}}
-  <section class="flex flex-col flex-1 mt-4 lg:mt-8">
-    <h1 class="text-6xl font-raleway font-[800]">Experience</h1>
+  <section class="flex flex-col flex-1 mt-4 lg:mt-8 font-raleway">
+    <h1 class="text-6xl font-[800]">Experience</h1>
     <div class="relative mt-8">
-      {{range $companyIndex, $company := .Content.Companies}}
-        {{range $positionIndex, $position := $company.Positions}}
+      {{range $index, $position := .Content}}
+        {{$isLast := eq $index 3}}
         <article class="relative ml-4 pl-10">
-          {{if not (and (eq $companyIndex (len $.Content.Companies | add -1)) (eq $positionIndex (len $company.Positions | add -1)))}}
-          <p class="absolute top-1 -bottom-1 left-0 w-px bg-black dark:bg-white"></p>
+          {{if not $isLast}}
+          <span class="absolute top-[8px] -bottom-[8px] left-0 w-px bg-black dark:bg-white"></span>
           {{end}}
-          <span class="absolute -left-2 top-1 h-4 w-4 rounded-full bg-black dark:bg-white"></span>
+          <span class="absolute -left-2 top-[8px] h-4 w-4 rounded-full bg-black dark:bg-white"></span>
           <div class="md:grid md:grid-cols-[160px_1fr]">
-            <div class="hidden md:block pt-1">
-              <p class="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+            <div class="hidden md:block mt-[8px]">
+              <p class="text-xs font-medium text-neutral-500 dark:text-neutral-100 ">
                 <span>{{$position.StartDate}}</span><span class="mx-1">-</span>
                 <span class="has-phosphor-icon">
                   {{if $position.IsCurrent}}Present{{else}}{{$position.EndDate}}{{end}}
                 </span>
               </p>
             </div>
-            <div class="space-y-1{{if not (and (eq $companyIndex (len $.Content.Companies | add -1)) (eq $positionIndex (len $company.Positions | add -1)))}} pb-8{{end}}">
+            <div class="space-y-1{{if not $isLast}} pb-8{{end}}">
               <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400">
                 <span>{{$position.StartDate}} - {{if $position.IsCurrent}}Present{{else}}{{$position.EndDate}}{{end}}</span>
               </p>
-              <p class="font-semibold text-neutral-900 dark:text-neutral-100">{{$position.Title}}</p>
-              <p class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">{{$company.Name}}</p>
-              <div class="prose prose-sm dark:prose-invert max-w-none"><p>{{$position.Description}}</p></div>
+              <p class="font-semibold text-2xl text-neutral-900 dark:text-neutral-100 m-0">{{$position.Title}}</p>
+              <div class="flex flex-col gap-1">
+                <div class="inline-flex items-center gap-1">
+                  <i class='bx bxs-briefcase text-sm leading-none'></i>
+                  <a href="{{$position.CompanyWebsite}}" target="_blank"><span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">{{$position.CompanyName}}</span></a>
+                </div>
+                <div class="inline-flex items-center gap-1">
+                  <i class='bx bx-current-location text-sm leading-none'></i>
+                  <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">{{$position.Location}}</span>
+                </div>
+              </div>
+              <div class="mt-4 font-serif text-sm"><p>{{$position.Description}}</p></div>
             </div>
           </div>
         </article>
-        {{end}}
       {{end}}
     </div>
   </section>
