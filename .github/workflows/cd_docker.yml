@@ -31,10 +31,6 @@ jobs:
           project_id: "${{ secrets.WIF_PROJECT_ID }}"
           workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
 
-      - name: Get git tag
-        uses: dawidd6/action-get-tag@v1
-        id: tag
-
       - name: Set-up gcloud sdk
         uses: google-github-actions/setup-gcloud@v3
 
@@ -55,6 +51,11 @@ jobs:
           tags: ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:nonprod
 
       # part is only triggered on a tag push (e.g. via GH release)
+      - name: Get git tag
+        if: contains(github.ref, 'refs/tags/')
+        uses: dawidd6/action-get-tag@v1
+        id: tag
+
       - name: Build and push
         uses: docker/build-push-action@v6
         if: contains(github.ref, 'refs/tags/')

@@ -52,10 +52,6 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
-      - name: Get git tag
-        uses: dawidd6/action-get-tag@v1
-        id: tag
-
       # part is only triggered on push to main (e.g. merge of PR)
       - name: Update web manifest for nonprod
         if: contains(github.ref, 'main')
@@ -67,6 +63,11 @@ jobs:
           gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_NONPROD }} --delete-unmatched-destination-objects --recursive
 
       # part is only triggered on a release
+      - name: Get git tag
+        if: contains(github.ref, 'refs/tags/')
+        uses: dawidd6/action-get-tag@v1
+        id: tag
+
       - name: Update manifest for prod
         if: contains(github.ref, 'refs/tags/')
         run: sed -i 's|./static/icon|https://cdn.ramonvermeulen.dev/icon|g' public/icon/manifest.webmanifest
