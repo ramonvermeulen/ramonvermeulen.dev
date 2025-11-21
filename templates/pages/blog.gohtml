@@ -1,5 +1,6 @@
 {{ define "content" }}
   <div class="lg:mt-8 mt-4 flex flex-1 flex-col">
+    <h1 class="text-6xl font-[800] mb-8"><span class="font-[200]">Blog</span> Posts</h1>
       {{ if eq (len .Content.Posts) 0 }}
         <p>No posts available.</p>
       {{ else }}
@@ -12,15 +13,15 @@
                 <a href="/blog/{{$post.Slug}}"
                    class="flex flex-col md:flex-row {{if mod $index 2}}md:flex-row-reverse{{end}}">
                   <div class="md:w-1/3">
-                    <img src="{{$cdnURL}}{{$post.Image}}" alt="{{$post.Title}}"
+                    <img src="{{$post.Image}}" alt="{{$post.Title}}"
                          class="rounded-lg w-full h-48 object-cover">
                   </div>
                   <div class="md:w-2/3 flex flex-col justify-between {{if (mod $index 2)}}md:pr-8{{else}}md:pl-8{{end}}">
                     <div>
-                      <h2 class="text-2xl font-bold mb-2 hover:underline line-clamp-2">
+                      <h2 class="text-2xl font-bold mb-2 hover:underline line-clamp-2 font-raleway">
                           {{$post.Title}}
                       </h2>
-                      <p class="mb-4 flex-1 overflow-hidden text-ellipsis line-clamp-5">{{$post.Description}}</p>
+                      <p class="mb-4 flex-1 overflow-hidden text-ellipsis line-clamp-5 text-sm">{{$post.Description}}</p>
                     </div>
                     <p class="text-gray-500 dark:text-white">{{ $post.Date.Format "2 Jan, 2006" }}</p>
                   </div>
