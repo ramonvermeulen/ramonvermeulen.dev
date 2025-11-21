@@ -1,15 +1,6 @@
 name: Deploy CDN Assets
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Select the deployment environment"
-        required: true
-        type: choice
-        options:
-          - nonprod
-          - prod
   push:
     branches:
       - main
@@ -17,6 +8,8 @@ on:
       - "assets/**"
       - "public/**"
       - "templates/**" # might look weird, but templates require the minified css to be rebuilt
+    tags:
+      - "**"
 
 env:
   CDN_BUCKET_NONPROD: "cdn-nonprod.ramonvermeulen.dev"
@@ -59,24 +52,26 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
+      - name: Get git tag
+        uses: dawidd6/action-get-tag@v1
+        id: tag
+
       # part is only triggered on push to main (e.g. merge of PR)
-      - name: Update manifest for nonprod
-        if: github.event_name == 'push'
+      - name: Update web manifest for nonprod
+        if: contains(github.ref, 'main')
         run: sed -i 's|./static/icon|https://cdn-nonprod.ramonvermeulen.dev/icon|g' public/icon/manifest.webmanifest
 
-      - name: Upload DAGs to nonprod
-        if: github.event_name == 'push'
+      - name: Upload assets to nonprod
+        if: contains(github.ref, 'main')
         run: |
           gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_NONPROD }} --delete-unmatched-destination-objects --recursive
 
-      # part is only triggered on manual release (e.g. via workflow_dispatch)
+      # part is only triggered on a release
       - name: Update manifest for prod
-        if: github.event_name == 'workflow_dispatch'
+        if: contains(github.ref, 'refs/tags/')
         run: sed -i 's|./static/icon|https://cdn.ramonvermeulen.dev/icon|g' public/icon/manifest.webmanifest
 
-      - name: Upload DAGs to prod
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          CDN_BUCKET: ${{ github.event.inputs.environment == 'prod' && env.CDN_BUCKET_PROD || env.CDN_BUCKET_NONPROD }}
+      - name: Upload assets to prod
+        if: contains(github.ref, 'refs/tags/')
         run: |
           gcloud storage rsync ./public gs://${{ env.CDN_BUCKET_PROD }} --delete-unmatched-destination-objects --recursive
