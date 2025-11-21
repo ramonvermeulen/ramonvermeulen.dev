@@ -1,6 +1,6 @@
 {{define "content"}}
   <section class="flex flex-col flex-1 mt-4 lg:mt-8 font-raleway">
-    <h1 class="text-6xl font-[800]">Experience</h1>
+    <h1 class="text-6xl font-[800]"><span class="font-[200]">Work</span> Experience</h1>
     <div class="relative mt-8">
       {{range $index, $position := .Content}}
         {{$isLast := eq $index 3}}
@@ -12,15 +12,21 @@
           <div class="md:grid md:grid-cols-[160px_1fr]">
             <div class="hidden md:block mt-[8px]">
               <p class="text-xs font-medium text-neutral-500 dark:text-neutral-100 ">
-                <span>{{$position.StartDate}}</span><span class="mx-1">-</span>
+                <span>{{dateFormat $position.StartDate}}</span><span class="mx-1">-</span>
                 <span class="has-phosphor-icon">
-                  {{if $position.IsCurrent}}Present{{else}}{{$position.EndDate}}{{end}}
+                  {{if not $position.EndDate}}Present{{else}}{{dateFormat $position.EndDate}}{{end}}
                 </span>
+              </p>
+              <p class="text-xs text-neutral-400 dark:text-neutral-400 mt-1">
+                ({{durationFormat $position.StartDate $position.EndDate}})
               </p>
             </div>
             <div class="space-y-1{{if not $isLast}} pb-8{{end}}">
               <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                <span>{{$position.StartDate}} - {{if $position.IsCurrent}}Present{{else}}{{$position.EndDate}}{{end}}</span>
+                <span>{{dateFormat $position.StartDate}} - {{if not $position.EndDate}}Present{{else}}{{dateFormat $position.EndDate}}{{end}}</span>
+              </p>
+              <p class="md:hidden text-xs text-neutral-400 dark:text-neutral-400 mt-1">
+                ({{durationFormat $position.StartDate $position.EndDate}})
               </p>
               <p class="font-semibold text-2xl text-neutral-900 dark:text-neutral-100 m-0">{{$position.Title}}</p>
               <div class="flex flex-col gap-1">
@@ -30,10 +36,32 @@
                 </div>
                 <div class="inline-flex items-center gap-1">
                   <i class='bx bx-current-location text-sm leading-none'></i>
-                  <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 has-phosphor-icon">{{$position.Location}}</span>
+                  <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300">{{$position.Location}}</span>
                 </div>
               </div>
-              <div class="mt-4 font-serif text-sm"><p>{{$position.Description}}</p></div>
+              <div class="mt-4 font-serif text-[13px]">
+                <p>{{$position.Description}}</p>
+              </div>
+                {{if $position.Technologies}}
+                <div class="flex items-center gap-2 mt-4 text-xs text-neutral-700 dark:text-neutral-300">
+                  <ul class="flex flex-wrap gap-1">
+                      {{range $tech := $position.Technologies}}
+                          {{if $tech.URL}}
+                            <li>
+                              <a href="{{$tech.URL}}" target="_blank" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">
+                                  {{ $tech.Name }}
+                              </a>
+                            </li>
+                          {{else}}
+                            <li class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">
+                                {{ $tech.Name }}
+                            </li>
+                          {{end}}
+                      {{end}}
+                  </ul>
+                </div>
+                {{end}}
+
             </div>
           </div>
         </article>

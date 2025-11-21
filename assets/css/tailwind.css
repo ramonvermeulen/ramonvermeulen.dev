@@ -103,3 +103,26 @@ a:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.tech-chip {
+  background: #d1d5db;
+  color: #1f2937;
+}
+.tech-chip:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+.dark .tech-chip {
+  background: #4b5563;
+  color: #f3f4f6;
+}
+.dark .tech-chip:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
+  color: #111827;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}

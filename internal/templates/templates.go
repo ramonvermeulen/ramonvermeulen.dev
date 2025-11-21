@@ -26,34 +26,22 @@ func LoadTemplates() error {
 		return err
 	}
 
-	tmplFiles, err := filepath.Glob("templates/pages/*.gohtml")
+	pageFiles, err := filepath.Glob("templates/pages/*.gohtml")
 	if err != nil {
 		return err
 	}
 
-	for _, tmplFile := range tmplFiles {
-		tmplName := strings.TrimSuffix(filepath.Base(tmplFile), ".gohtml")
-		partials = append(partials, tmplFile)
+	fm := buildFuncMap()
 
-		t, err := template.New("").Funcs(template.FuncMap{
-			"sub": func(a, b int) int { return a - b },
-			"mod": func(a, b int) int { return a % b },
-			"add": func(a, b int) int { return a + b },
-			"len": func(v interface{}) int {
-				switch val := v.(type) {
-				case []*models.Position:
-					return len(val)
-				default:
-					return 0
-				}
-			},
-		}).ParseFiles(partials...)
+	for _, page := range pageFiles {
+		name := strings.TrimSuffix(filepath.Base(page), ".gohtml")
+		files := append(append([]string{}, partials...), page) // fresh slice each iteration
+		parsed, err := template.New(name).Funcs(fm).ParseFiles(files...)
 		if err != nil {
 			return err
 		}
-		templates[tmplName] = t
+		templates[name] = parsed
 	}
-
 	return nil
 }
 
@@ -72,8 +60,7 @@ func RenderTemplate[T any](w http.ResponseWriter, tmpl string, data *models.Page
 		return
 	}
 
-	err := t.ExecuteTemplate(w, "base", data)
-	if err != nil {
+	if err := t.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
 	}
 }

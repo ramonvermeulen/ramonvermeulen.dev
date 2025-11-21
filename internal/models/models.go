@@ -36,14 +36,20 @@ type BlogPostMeta struct {
 	Slug        string
 }
 
+// Technology struct represents a technology used in a position
+type Technology struct {
+	Name string
+	URL  string
+}
+
 // Position t.b.d. until API stable
 type Position struct {
 	CompanyName    string
 	CompanyWebsite string
-	StartDate      string
-	EndDate        string
+	StartDate      time.Time
+	EndDate        *time.Time
 	Title          string
 	Location       string
 	Description    string
-	IsCurrent      bool
+	Technologies   []Technology
 }
