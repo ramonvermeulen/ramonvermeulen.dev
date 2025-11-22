@@ -2,20 +2,17 @@
   <section class="flex flex-col flex-1 mt-4 lg:mt-8 font-raleway">
     <h1 class="text-6xl font-[800]"><span class="font-[200]">Work</span> Experience</h1>
     <div class="relative mt-8">
-      {{range $index, $position := .Content}}
-        {{$isLast := eq $index 3}}
+      {{- range $index, $position := .Content -}}{{$isLast := eq $index 3}}
         <article class="relative ml-4 pl-10">
-          {{if not $isLast}}
+          {{- if not $isLast -}}
           <span class="absolute top-[8px] -bottom-[8px] left-0 w-px bg-black dark:bg-white"></span>
-          {{end}}
+          {{- end -}}
           <span class="absolute -left-2 top-[8px] h-4 w-4 rounded-full bg-black dark:bg-white"></span>
           <div class="md:grid md:grid-cols-[160px_1fr]">
             <div class="hidden md:block mt-[8px]">
               <p class="text-xs font-medium text-neutral-500 dark:text-neutral-100 ">
                 <span>{{dateFormat $position.StartDate}}</span><span class="mx-1">-</span>
-                <span class="has-phosphor-icon">
-                  {{if not $position.EndDate}}Present{{else}}{{dateFormat $position.EndDate}}{{end}}
-                </span>
+                <span class="has-phosphor-icon">{{- if not $position.EndDate -}}Present{{- else -}}{{dateFormat $position.EndDate}}{{- end -}}</span>
               </p>
               <p class="text-xs text-neutral-400 dark:text-neutral-400 mt-1">
                 ({{durationFormat $position.StartDate $position.EndDate}})
@@ -23,7 +20,7 @@
             </div>
             <div class="space-y-1{{if not $isLast}} pb-8{{end}}">
               <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                <span>{{dateFormat $position.StartDate}} - {{if not $position.EndDate}}Present{{else}}{{dateFormat $position.EndDate}}{{end}}</span>
+                <span>{{dateFormat $position.StartDate}} - {{ if not $position.EndDate -}}Present{{- else -}}{{dateFormat $position.EndDate}}{{- end -}}</span>
               </p>
               <p class="md:hidden text-xs text-neutral-400 dark:text-neutral-400 mt-1">
                 ({{durationFormat $position.StartDate $position.EndDate}})
@@ -42,30 +39,15 @@
               <div class="mt-4 font-serif text-[13px]">
                 <p>{{$position.Description}}</p>
               </div>
-                {{if $position.Technologies}}
+              {{- if $position.Technologies -}}
                 <div class="flex items-center gap-2 mt-4 text-xs text-neutral-700 dark:text-neutral-300">
-                  <ul class="flex flex-wrap gap-1">
-                      {{range $tech := $position.Technologies}}
-                          {{if $tech.URL}}
-                            <li>
-                              <a href="{{$tech.URL}}" target="_blank" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">
-                                  {{ $tech.Name }}
-                              </a>
-                            </li>
-                          {{else}}
-                            <li class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">
-                                {{ $tech.Name }}
-                            </li>
-                          {{end}}
-                      {{end}}
-                  </ul>
+                  <ul class="flex flex-wrap gap-1">{{- range $tech := $position.Technologies -}}{{- if $tech.URL -}}<li><a href="{{$tech.URL}}" target="_blank" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">{{ $tech.Name }}</a></li>{{- else -}}<li class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">{{ $tech.Name }}</li>{{- end -}}{{- end -}}</ul>
                 </div>
-                {{end}}
-
+              {{- end -}}
             </div>
           </div>
         </article>
-      {{end}}
+      {{- end -}}
     </div>
   </section>
 {{end}}
