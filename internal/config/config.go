@@ -39,7 +39,7 @@ func New() *Config {
 	}
 
 	if postBasePath == "" {
-		postBasePath = "./public/posts"
+		postBasePath = "./public/posts/"
 		log.Printf("warn: POSTS_BASE_PATH env variable not set, defaulting to %s", postBasePath)
 	}
 

@@ -22,7 +22,7 @@ type Renderer struct {
 
 // Render t.b.d. until API stable
 func (r *Renderer) Render(target string) (string, *models.BlogPostMeta, error) {
-	target = fmt.Sprintf("%s/%s.md", r.BasePath, target)
+	target = fmt.Sprintf("%s%s.md", r.BasePath, target)
 	reader, err := r.Reader.Open(target)
 	if err != nil {
 		return "", nil, fmt.Errorf("failed to open file: %w", err)
