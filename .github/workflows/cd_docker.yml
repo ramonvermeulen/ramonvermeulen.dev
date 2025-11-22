@@ -34,14 +34,17 @@ jobs:
       - name: Set-up gcloud sdk
         uses: google-github-actions/setup-gcloud@v3
 
+      # part is only triggered on merge to main (normal commit or PR)
+      # on a tag push we do not have to rebuild, we can simply retag what is already on nonprod
       - name: Docker auth
+        if: contains(github.ref, 'main')
         run: |
           gcloud auth configure-docker ${{ secrets.AR_LOCATION }}-docker.pkg.dev --quiet
 
       - name: Set up Docker Buildx
+        if: contains(github.ref, 'main')
         uses: docker/setup-buildx-action@v3
 
-      # part is only triggered on merge to main (normal commit or PR)
       - name: Build and push
         uses: docker/build-push-action@v6
         if: contains(github.ref, 'main')
@@ -56,11 +59,9 @@ jobs:
         uses: dawidd6/action-get-tag@v1
         id: tag
 
-      - name: Build and push
-        uses: docker/build-push-action@v6
+      - name: Retag nonprod image for prod
         if: contains(github.ref, 'refs/tags/')
-        with:
-          push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:${{ steps.tag.outputs.tag }},${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:prod
+        run: |
+          gcloud artifacts docker tags add ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:nonprod ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
+          gcloud artifacts docker tags add ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:nonprod ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:prod
 
