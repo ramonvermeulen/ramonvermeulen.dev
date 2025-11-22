@@ -5,7 +5,7 @@ go 1.25.1
 require (
 	cloud.google.com/go/storage v1.52.0
 	github.com/adrg/frontmatter v0.2.0
-	github.com/go-chi/chi/v5 v5.2.1
+	github.com/go-chi/chi/v5 v5.2.2
 	github.com/yuin/goldmark v1.7.11
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 	google.golang.org/api v0.231.0
