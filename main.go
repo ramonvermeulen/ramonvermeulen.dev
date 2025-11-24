@@ -32,9 +32,11 @@ func main() {
 	if cfg.Env == "dev" {
 		templates.SetDevMode(true)
 		fs := http.FileServer(http.Dir("./public"))
-		router.Handle("GET /public/*", http.StripPrefix("/public", fs))
+		router.Handle("/public/*", http.StripPrefix("/public", fs))
 	}
 
+	router.Get("/robots.txt", handlers.RobotsTxtHandler(cfg))
+	router.Get("/sitemap.xml", handlers.SitemapXMLHandler(cfg, renderer))
 	router.Get("/ping", handlers.PongHandler())
 	router.Get("/blog", handlers.BlogIndexHandler(cfg, renderer))
 	router.Get("/blog/{postSlug:[a-z-]+}", handlers.BlogPostHandler(cfg, renderer))

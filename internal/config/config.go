@@ -12,6 +12,7 @@ type Config struct {
 	CdnURL       string
 	GCSBucket    string
 	PostBasePath string
+	BaseURL      string
 }
 
 // New constructs a Config from environment variables, applying defaults.
@@ -27,6 +28,7 @@ func New() (*Config, error) {
 	cdnURL := os.Getenv("CDN_URL")
 	gcsBucket := os.Getenv("GCS_BUCKET")
 	postBasePath := os.Getenv("POSTS_BASE_PATH")
+	baseURL := os.Getenv("BASE_URL")
 
 	if cdnURL == "" && !isDev {
 		return nil, fmt.Errorf("CDN_URL env variable is required when ENV=%s", env)
@@ -42,11 +44,16 @@ func New() (*Config, error) {
 		postBasePath = "./public/posts/"
 		log.Printf("warn: POSTS_BASE_PATH env variable not set, defaulting to %s", postBasePath)
 	}
+	if baseURL == "" {
+		baseURL = "http://localhost:8080"
+		log.Printf("warn: BASE_URL env variable not set, defaulting to %s", baseURL)
+	}
 
 	return &Config{
 		Env:          env,
 		CdnURL:       cdnURL,
 		GCSBucket:    gcsBucket,
 		PostBasePath: postBasePath,
+		BaseURL:      baseURL,
 	}, nil
 }
