@@ -1,35 +1,33 @@
 {{define "header"}}
-  <header class="flex flex-col md:flex-row justify-between items-center lg:mt-10 mt-4">
-    <div class="flex justify-between items-center w-full md:w-auto">
-      <a href="/" class="text-2xl md:text-left text-center py-2"><span class="font-bold">ramonvermeulen</span>.dev</a>
-      <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none py-2">
-        &#9776;
-      </button>
+<header class="flex flex-col md:flex-row justify-between items-center lg:mt-10 mt-4">
+  <div class="flex justify-between items-center w-full md:w-auto">
+    <a href="/" class="text-2xl md:text-left text-center py-2"><span class="font-bold">ramonvermeulen</span>.dev</a>
+    <div class="flex items-center">
+      <div class="md:hidden cursor-pointer bg-gray-300 dark:bg-gray-400 hover:bg-gray-500 rounded-full w-8 h-8 flex items-center justify-center mr-2"
+           onclick="toggleTheme()">
+        <i class='bx bxs-moon text-xl text-white leading-none'></i>
+      </div>
+      <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none py-2" aria-label="Menu">&#9776;</button>
     </div>
-    <nav id="menu" class="w-full md:w-auto hidden md:flex font-raleway">
-      <ul class="flex flex-col md:flex-row md:space-x-6 text-lg items-start md:items-center dark:text-gray-200">
-        <li class="md:mb-0 mb-2">
-          <a href="/"
-             class="{{if eq .Path "/"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >About</a>
-        </li>
-        <li class="md:mb-0 mb-2">
-          <a href="/experience"
-             class="{{if eq .Path "/experience"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >Experience</a>
-        </li>
-        <li class="md:mb-0 mb-2">
-          <a href="/blog"
-             class="{{if eq .Path "/blog"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white"
-          >Blog</a>
-        </li>
-        <li class="md:mb-0 mb-2">
-          <div class="cursor-pointer bg-gray-300 dark:bg-gray-400 hover:bg-gray-500 rounded-full w-10 h-10 flex items-center justify-center"
-               onclick="toggleTheme()">
-            <i class='bx bxs-moon text-2xl text-white leading-none'></i>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  </div>
+  <nav id="menu" class="w-full md:w-auto hidden md:flex font-raleway">
+    <ul class="flex flex-col md:flex-row md:space-x-6 text-lg items-start md:items-center dark:text-gray-200">
+      <li class="md:mb-0 mb-2 md:border-0 border-b-1">
+        <a href="/" class="{{if eq .Path "/"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white">About</a>
+      </li>
+      <li class="md:mb-0 mb-2 md:border-0 border-b-1">
+        <a href="/experience" class="{{if eq .Path "/experience"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white">Experience</a>
+      </li>
+      <li class="md:mb-0 mb-2 md:border-0 border-b-1">
+        <a href="/blog" class="{{if eq .Path "/blog"}}font-semibold{{end}} hover:text-gray-700 hover:underline dark:hover:text-white">Blog</a>
+      </li>
+      <li class="md:mb-0 mb-2 hidden md:block">
+        <div class="cursor-pointer bg-gray-300 dark:bg-gray-400 hover:bg-gray-500 rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
+             onclick="toggleTheme()">
+          <i class='bx bxs-moon text-xl md:text-2xl text-white leading-none'></i>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
 {{end}}

@@ -1,14 +1,11 @@
 let currentTheme;
 
 function updateThemeIcon(isDarkMode) {
-    const iconElement = document.querySelector('.bx');
-    if (iconElement) {
-        if (isDarkMode) {
-            iconElement.classList.replace('bxs-moon', 'bxs-sun');
-        } else {
-            iconElement.classList.replace('bxs-sun', 'bxs-moon');
-        }
-    }
+    const icons = document.querySelectorAll('.bx');
+    icons.forEach(icon => {
+        icon.classList.toggle('bxs-moon', !isDarkMode);
+        icon.classList.toggle('bxs-sun', isDarkMode);
+    });
 }
 
 function applyTheme() {

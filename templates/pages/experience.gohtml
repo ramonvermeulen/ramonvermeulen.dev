@@ -1,6 +1,6 @@
 {{define "content"}}
   <section class="flex flex-col flex-1 mt-4 lg:mt-8 font-raleway">
-    <h1 class="text-6xl font-[800]"><span class="font-[200]">Work</span> Experience</h1>
+    <h1 class="text-4xl sm:text-6xl font-[800]"><span class="font-[200]">Work</span> Experience</h1>
     <div class="relative mt-8">
       {{- range $index, $position := .Content -}}{{$isLast := eq $index 3}}
         <article class="relative ml-4 pl-10">
@@ -18,14 +18,14 @@
                 ({{durationFormat $position.StartDate $position.EndDate}})
               </p>
             </div>
-            <div class="space-y-1{{if not $isLast}} pb-8{{end}}">
+            <div class="space-y-1{{if not $isLast}} pb-8{{end}} pt-2 md:pt-0">
               <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400">
                 <span>{{dateFormat $position.StartDate}} - {{ if not $position.EndDate -}}Present{{- else -}}{{dateFormat $position.EndDate}}{{- end -}}</span>
               </p>
               <p class="md:hidden text-xs text-neutral-400 dark:text-neutral-400 mt-1">
                 ({{durationFormat $position.StartDate $position.EndDate}})
               </p>
-              <p class="font-semibold text-2xl text-neutral-900 dark:text-neutral-100 m-0">{{$position.Title}}</p>
+              <p class="font-semibold md:text-2xl text-xl text-neutral-900 dark:text-neutral-100 m-0">{{$position.Title}}</p>
               <div class="flex flex-col gap-1">
                 <div class="inline-flex items-center gap-1">
                   <i class='bx bxs-briefcase text-sm leading-none'></i>
