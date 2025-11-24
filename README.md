@@ -5,9 +5,7 @@
     <a href="https://github.com/ramonvermeulen/ramonvermeulen.dev"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ramonvermeulen/ramonvermeulen.dev"></a>
 </div>
 
-Repository containing the code for my personal website [ramonvermeulen.dev](https://ramonvermeulen.dev) which is 
-currently still in early development. Since I am challenging myself this year to get more familiar with golang, I 
-decided to build my personal website using golang.
+Repository containing the code for my personal website: [ramonvermeulen.dev](https://ramonvermeulen.dev) 
 
 ## Directory Structure
 
@@ -15,7 +13,7 @@ decided to build my personal website using golang.
 ramonvermeulen.dev
 │   main.go         // entry point of the application
 │
-└───internal        // main source code (go modules)
+└───internal        // main source code
 │
 └───assets          // original css and js assets (not minified)
 │
@@ -34,12 +32,7 @@ go mod tidy
 npm install
 ```
 
-### Run server
+### Run server & watchers
 ```bash
-go run main.go
-```
-
-### Run watchers
-```bash
-npm run dev
+make dev
 ```

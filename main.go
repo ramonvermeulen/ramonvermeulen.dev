@@ -13,7 +13,10 @@ import (
 )
 
 func main() {
-	cfg := config.New()
+	cfg, err := config.New()
+	if err != nil {
+		log.Fatal("config init failed: ", err)
+	}
 	if err := templates.LoadTemplates(); err != nil {
 		log.Fatal("Error loading templates: ", err)
 	}

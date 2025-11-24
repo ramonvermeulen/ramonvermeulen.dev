@@ -12,7 +12,7 @@ import (
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
-// BlogPostHandler t.b.d. until API stable
+// BlogPostHandler renders a single blog post based on the postSlug URL parameter.
 func BlogPostHandler(cfg *config.Config, renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		postSlug := chi.URLParam(r, "postSlug")

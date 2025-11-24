@@ -1,11 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
 
-// Config t.b.d. until API stable
+// Config holds application runtime configuration.
 type Config struct {
 	Env          string
 	CdnURL       string
@@ -13,8 +14,9 @@ type Config struct {
 	PostBasePath string
 }
 
-// New t.b.d. until API stable
-func New() *Config {
+// New constructs a Config from environment variables, applying defaults.
+// Returns an error instead of exiting on validation failures.
+func New() (*Config, error) {
 	env := os.Getenv("ENV")
 	if env == "" {
 		env = "dev"
@@ -27,17 +29,15 @@ func New() *Config {
 	postBasePath := os.Getenv("POSTS_BASE_PATH")
 
 	if cdnURL == "" && !isDev {
-		log.Fatalf("error: CDN_URL env variable is required in higher environments")
+		return nil, fmt.Errorf("CDN_URL env variable is required when ENV=%s", env)
 	}
-	if cdnURL == "" {
+	if cdnURL == "" { // dev default
 		cdnURL = "http://localhost:8080/public"
 		log.Printf("warn: CDN_URL env variable not set, defaulting to %s", cdnURL)
 	}
-
 	if gcsBucket == "" && !isDev {
-		log.Fatalf("error: GCS_BUCKET env variable is required in higher environments")
+		return nil, fmt.Errorf("GCS_BUCKET env variable is required when ENV=%s", env)
 	}
-
 	if postBasePath == "" {
 		postBasePath = "./public/posts/"
 		log.Printf("warn: POSTS_BASE_PATH env variable not set, defaulting to %s", postBasePath)
@@ -48,5 +48,5 @@ func New() *Config {
 		CdnURL:       cdnURL,
 		GCSBucket:    gcsBucket,
 		PostBasePath: postBasePath,
-	}
+	}, nil
 }

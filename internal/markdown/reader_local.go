@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 )
 
-// LocalReader t.b.d. until API stable
+// LocalReader reads files from the local filesystem
 type LocalReader struct{}
 
-// Open t.b.d. until API stable
+// Open returns a ReadCloser for the specified target file
 func (lr *LocalReader) Open(target string) (io.ReadCloser, error) {
 	file, err := os.Open(target)
 	if err != nil {
@@ -22,7 +22,7 @@ func (lr *LocalReader) Open(target string) (io.ReadCloser, error) {
 	return file, nil
 }
 
-// List t.b.d. until API stable
+// List returns a list of file names in the local filesystem with the specified prefix
 func (lr *LocalReader) List(prefix string) ([]string, error) {
 	fileNames, err := filepath.Glob(fmt.Sprintf("%s/*.md", prefix))
 	if err != nil {

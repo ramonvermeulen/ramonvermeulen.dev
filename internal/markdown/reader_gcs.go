@@ -10,13 +10,13 @@ import (
 	"google.golang.org/api/iterator"
 )
 
-// GCSReader t.b.d. until API stable
+// GCSReader reads files from Google Cloud Storage
 type GCSReader struct {
 	BucketName string
 	Client     *storage.Client
 }
 
-// Open t.b.d. until API stable
+// Open returns a ReadCloser for the specified target file in GCS
 func (gr *GCSReader) Open(target string) (io.ReadCloser, error) {
 	ctx := context.Background()
 	reader, err := gr.Client.Bucket(gr.BucketName).Object(target).NewReader(ctx)
@@ -29,7 +29,7 @@ func (gr *GCSReader) Open(target string) (io.ReadCloser, error) {
 	return reader, nil
 }
 
-// List t.b.d. until API stable
+// List returns a list of file names in GCS with the specified prefix
 func (gr *GCSReader) List(prefix string) ([]string, error) {
 	ctx := context.Background()
 	it := gr.Client.Bucket(gr.BucketName).Objects(ctx, &storage.Query{Prefix: prefix})

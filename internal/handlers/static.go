@@ -8,7 +8,7 @@ import (
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
-// StaticPageHandler t.b.d. until API stable
+// StaticPageHandler handles static pages like the about page.
 func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 	routeMap := map[string]struct {
 		template string

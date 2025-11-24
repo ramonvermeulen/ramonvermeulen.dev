@@ -1,7 +1,7 @@
 let currentTheme;
 
 function updateThemeIcon(isDarkMode) {
-    const icons = document.querySelectorAll('.bx');
+    const icons = document.querySelectorAll(isDarkMode ? '.bxs-moon' : '.bxs-sun');
     icons.forEach(icon => {
         icon.classList.toggle('bxs-moon', !isDarkMode);
         icon.classList.toggle('bxs-sun', isDarkMode);

@@ -2,19 +2,27 @@ package markdown
 
 import (
 	"context"
+	"errors"
 	"io"
 
 	"cloud.google.com/go/storage"
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/config"
 )
 
-// FileReader t.b.d. until API stable
+var (
+	// ErrFileNotFound indicates that the requested file does not exist
+	ErrFileNotFound = errors.New("file not found")
+	// ErrReadFailed indicates that reading the file failed
+	ErrReadFailed = errors.New("failed to read file")
+)
+
+// FileReader interface for reading and listing files
 type FileReader interface {
 	Open(target string) (io.ReadCloser, error)
 	List(prefix string) ([]string, error)
 }
 
-// NewFileReader t.b.d. until API stable
+// NewFileReader returns a new FileReader based on the environment
 func NewFileReader(cfg *config.Config) (FileReader, error) {
 	if cfg.Env != "dev" {
 		ctx := context.Background()

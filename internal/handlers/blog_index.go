@@ -10,7 +10,7 @@ import (
 	"github.com/ramonvermeulen/ramonvermeulen.dev/internal/templates"
 )
 
-// BlogIndexHandler t.b.d. until API stable
+// BlogIndexHandler renders the blog index page.
 func BlogIndexHandler(cfg *config.Config, renderer *markdown.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		posts, err := renderer.List()
