@@ -69,11 +69,11 @@ func (r *Renderer) List() ([]*models.BlogPostMeta, error) {
 			return nil, fmt.Errorf("open %s: %w", fileName, err)
 		}
 		content, err := io.ReadAll(reader)
-		if cerr := reader.Close(); cerr != nil {
-			log.Printf("error closing reader for %s: %v", fileName, cerr)
-		}
 		if err != nil {
 			return nil, fmt.Errorf("read %s: %w", fileName, err)
+		}
+		if cerr := reader.Close(); cerr != nil {
+			log.Printf("error closing reader for %s: %v", fileName, cerr)
 		}
 		var meta models.BlogPostMeta
 		if _, err = frontmatter.Parse(bytes.NewReader(content), &meta); err != nil {
