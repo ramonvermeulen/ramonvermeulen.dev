@@ -1,7 +1,8 @@
-.PHONY: dev build clean
+.PHONY: dev build clean test
 
 GO_CMD=go
 GO_RUN=$(GO_CMD) run
+GO_TEST=$(GO_CMD) test
 MAIN_FILE=main.go
 
 NPM_CMD=npm
@@ -27,3 +28,7 @@ build:
 clean:
 	@echo "Cleaning up..."
 	@rm -f app
+
+test:
+	@echo "Running all tests..."
+	@$(GO_TEST) ./... -count=1
