@@ -65,3 +65,10 @@ jobs:
           gcloud artifacts docker tags add ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:nonprod ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
           gcloud artifacts docker tags add ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:nonprod ${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:prod
 
+      - name: Restart cloud run service
+        run: |
+          gcloud run services update ${{ secrets.SERVICE_NAME }} \
+            --region=${{ secrets.SERVICE_REGION }} \
+            --project=${{ secrets.SERVICE_PROJECT_PREFIX }}-${{ contains(github.ref, 'refs/tags/') && 'prod' || 'nonprod' }} \
+            --image=${{ secrets.AR_URL }}/${{ secrets.IMAGE_NAME }}:${{ contains(github.ref, 'refs/tags/') && 'prod' || 'nonprod' }}
+
