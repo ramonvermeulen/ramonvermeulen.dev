@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{.Title}} | ramonvermeulen.dev</title>
     <script>
-        (function () {
-            const isDarkMode = localStorage.currentTheme === "dark" ||
-                (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches);
-            if (isDarkMode) {
-                document.documentElement.classList.add("dark");
-            }
-        })();
+      (function() {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
     </script>
     <script src="{{.CdnURL}}/js/theme.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="{{.CdnURL}}/icon/apple-touch-icon.png">
@@ -29,9 +31,9 @@
           class="bg-cover bg-fixed bg-center bg-no-repeat font-serif bg-white dark:bg-black text-black dark:text-white"
   >
   <div class="max-w-[900px] mx-auto min-h-screen flex flex-col lg:px-0 px-4">
-    <div class="header">{{template "header" .}}</div>
+    <div class="header" role="navigation">{{template "header" .}}</div>
       {{block "content" .}} {{end}}
-    <div class="footer">{{template "footer" .}}</div>
+    <div class="footer" role="contentinfo">{{template "footer" .}}</div>
   </div>
   </body>
   </html>
