@@ -11,10 +11,11 @@ import (
 // StaticPageHandler handles static pages like the about page.
 func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 	routeMap := map[string]struct {
-		template string
-		title    string
+		template    string
+		title       string
+		description string
 	}{
-		"/": {"about", "About"},
+		"/": {"about", "About", "I am a Software and Cloud Engineer with a strong background in Google Cloud Platform, currently working at Xebia. I focus on building scalable, reliable, and secure cloud-native platforms and applications using modern technologies and industry best practices."},
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

@@ -9,10 +9,11 @@ import (
 
 // PageData is a generic struct for passing data to templates.
 type PageData[T any] struct {
-	Title   string
-	Path    string
-	CdnURL  string
-	Content T
+	Title       string
+	Description string
+	Path        string
+	CdnURL      string
+	Content     T
 }
 
 // NoContent is used for pages without specific content.

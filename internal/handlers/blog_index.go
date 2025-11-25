@@ -21,9 +21,10 @@ func BlogIndexHandler(cfg *config.Config, renderer *markdown.Renderer) http.Hand
 		}
 
 		data := &models.PageData[models.BlogIndex]{
-			Title:  "Blog",
-			Path:   r.URL.Path,
-			CdnURL: cfg.CdnURL,
+			Title:       "Blog",
+			Description: "Collection of personal articles on software development, cloud computing, and technology.",
+			Path:        r.URL.Path,
+			CdnURL:      cfg.CdnURL,
 			Content: models.BlogIndex{
 				Posts: posts,
 			},
