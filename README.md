@@ -1,10 +1,10 @@
 <div align="center">
     <img alt="logo" data-is-relative="true" src="public/icon/android-chrome-512x512.png" width="200" height="200"/>
-    <h1>ramonvermeulen.dev</h1>
-    <a href="https://go.dev/doc/devel/release"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/ramonvermeulen/ramonvermeulen.dev"></a>
-    <a href="https://github.com/ramonvermeulen/ramonvermeulen.dev"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ramonvermeulen/ramonvermeulen.dev"></a>
-    <a href="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_docker.yml"><img alt="CD" src="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_docker.yml/badge.svg"></a>
 </div>
+<h1>ramonvermeulen.dev</h1>
+<a href="https://go.dev/doc/devel/release"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/ramonvermeulen/ramonvermeulen.dev"></a>
+<a href="https://goreportcard.com/report/github.com/ramonvermeulen/ramonvermeulen.dev"><img alt="Go report" src="https://goreportcard.com/badge/github.com/ramonvermeulen/ramonvermeulen.dev"></a>
+<a href="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_docker.yml"><img alt="CD" src="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_docker.yml/badge.svg"></a>
 
 Repository containing the source code for my personal website [**ramonvermeulen.dev**](https://ramonvermeulen.dev).
 The website is built with Go and uses simple HTML templates in combination with [**TailwindCSS**](https://tailwindcss.com) for styling.
