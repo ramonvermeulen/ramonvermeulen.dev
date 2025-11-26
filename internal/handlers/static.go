@@ -15,7 +15,7 @@ func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 		title       string
 		description string
 	}{
-		"/": {"about", "About", "I am a Software and Cloud Engineer with a strong background in Google Cloud Platform, currently working at Xebia. I focus on building scalable, reliable, and secure cloud-native platforms and applications using modern technologies and industry best practices."},
+		"/": {"about", "About", "I am a Software and Cloud Engineer with a strong background in Google Cloud Platform, currently working at Xebia. My journey at Xebia began as a Data Engineer, and my interests have steadily evolved towards Cloud Infrastructure and Software Engineering."},
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
