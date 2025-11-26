@@ -4,7 +4,9 @@
 
 @theme {
   --font-raleway: "Raleway", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: "Source Serif 4", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* attempt to get around cloudflare font issue */
+  /* https://community.cloudflare.com/t/cloudflare-fonts-doesnt-work-if-font-has-space-in-name/572830 */
+  --font-serif: "Source\ Serif\ 4", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .post-content {
