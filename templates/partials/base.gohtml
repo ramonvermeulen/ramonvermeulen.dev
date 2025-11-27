@@ -2,24 +2,24 @@
   <!doctype html>
   <html lang="en">
   <head>
+    <script>
+      (function () {
+          const theme = localStorage.getItem('theme');
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+    <style>
+      html, body { background: #fff; color: #000; }
+      html.dark, html.dark body { background: #111111; color: #fff; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="{{.Description}}"/>
     <title>{{.Title}} | ramonvermeulen.dev</title>
-    <script>
-      (function() {
-        const theme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (theme === 'dark' || (!theme && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      })();
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
     <script src="{{.CdnURL}}/js/theme.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="{{.CdnURL}}/icon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{.CdnURL}}/icon/favicon-32x32.png">
@@ -31,7 +31,7 @@
   </head>
   <body
           style="background-image: url('{{.CdnURL}}/img/background.png');"
-          class="bg-cover bg-fixed bg-center bg-no-repeat font-serif bg-white dark:bg-black text-black dark:text-white"
+          class="bg-cover bg-fixed bg-center bg-no-repeat font-vollkorn bg-white dark:bg-black text-black dark:text-white"
   >
   <div class="max-w-[900px] mx-auto min-h-screen flex flex-col lg:px-0 px-4">
     <div class="header" role="navigation">{{template "header" .}}</div>
