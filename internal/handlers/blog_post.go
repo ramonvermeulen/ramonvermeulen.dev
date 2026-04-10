@@ -31,10 +31,11 @@ func BlogPostHandler(cfg *config.Config, renderer *markdown.Renderer) http.Handl
 		}
 
 		data := &models.PageData[models.BlogPost]{
-			Title:       meta.Title,
-			Description: meta.Description,
-			Path:        r.URL.Path,
-			CdnURL:      cfg.CdnURL,
+			Title:        meta.Title,
+			Description:  meta.Description,
+			Path:         r.URL.Path,
+			CanonicalURL: cfg.BaseURL + r.URL.Path,
+			CdnURL:       cfg.CdnURL,
 			Content: models.BlogPost{
 				Content: template.HTML(rendered),
 				Meta:    meta,
