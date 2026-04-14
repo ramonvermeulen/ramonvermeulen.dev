@@ -14,6 +14,7 @@ type PageData[T any] struct {
 	Path         string
 	CanonicalURL string
 	CdnURL       string
+	IsDarkMode   bool
 	Content      T
 }
 

@@ -32,6 +32,7 @@ func StaticPageHandler(cfg *config.Config) http.HandlerFunc {
 			Content:      models.NoContent{},
 			CdnURL:       cfg.CdnURL,
 			Description:  route.description,
+			IsDarkMode:   isDarkMode(r),
 		}
 
 		templates.RenderTemplate[models.NoContent](w, route.template, data)

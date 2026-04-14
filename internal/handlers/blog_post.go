@@ -36,6 +36,7 @@ func BlogPostHandler(cfg *config.Config, renderer *markdown.Renderer) http.Handl
 			Path:         r.URL.Path,
 			CanonicalURL: cfg.BaseURL + r.URL.Path,
 			CdnURL:       cfg.CdnURL,
+			IsDarkMode:   isDarkMode(r),
 			Content: models.BlogPost{
 				Content: template.HTML(rendered),
 				Meta:    meta,

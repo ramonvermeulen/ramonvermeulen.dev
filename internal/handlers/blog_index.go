@@ -26,6 +26,7 @@ func BlogIndexHandler(cfg *config.Config, renderer *markdown.Renderer) http.Hand
 			Path:         r.URL.Path,
 			CanonicalURL: cfg.BaseURL + r.URL.Path,
 			CdnURL:       cfg.CdnURL,
+			IsDarkMode:   isDarkMode(r),
 			Content: models.BlogIndex{
 				Posts: posts,
 			},

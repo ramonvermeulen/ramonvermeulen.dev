@@ -1,4 +1,9 @@
 let currentTheme;
+const themeCookieName = "theme";
+
+function syncThemeCookie(theme) {
+    document.cookie = `${themeCookieName}=${theme}; path=/; max-age=31536000; samesite=lax`;
+}
 
 function updateThemeIcon(isDarkMode) {
     const icons = document.querySelectorAll(isDarkMode ? '.bxs-moon' : '.bxs-sun');
@@ -19,6 +24,7 @@ function toggleTheme() {
     const isDarkMode = document.documentElement.classList.contains("dark");
     currentTheme = isDarkMode ? "light" : "dark";
     localStorage.currentTheme = currentTheme;
+    syncThemeCookie(currentTheme);
     applyTheme();
 }
 
@@ -29,6 +35,9 @@ function toggleMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
     currentTheme = localStorage.currentTheme;
+    if (currentTheme) {
+        syncThemeCookie(currentTheme);
+    }
     applyTheme();
 
     const menuToggle = document.getElementById('menu-toggle');

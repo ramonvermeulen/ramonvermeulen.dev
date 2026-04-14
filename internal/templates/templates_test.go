@@ -24,6 +24,7 @@ func TestLoadTemplatesAndRender(t *testing.T) {
 		CanonicalURL: "https://ramonvermeulen.dev/",
 		Content:      models.NoContent{},
 		CdnURL:       "http://cdn",
+		IsDarkMode:   true,
 	}
 	RenderTemplate[models.NoContent](w, "about", data)
 	out := w.Body.String()
@@ -32,6 +33,9 @@ func TestLoadTemplatesAndRender(t *testing.T) {
 	}
 	if !strings.Contains(out, `<link rel="canonical" href="https://ramonvermeulen.dev/"/>`) {
 		t.Errorf("expected canonical tag in output")
+	}
+	if !strings.Contains(out, `<html lang="en" class="dark">`) {
+		t.Errorf("expected dark mode html class in output")
 	}
 	if !strings.Contains(out, "Software & Cloud Engineer") {
 		t.Errorf("expected snippet from about page; output length %d", len(out))
