@@ -50,6 +50,12 @@ html {
   background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
 }
 
+.content-links {
+  a {
+    @apply text-neutral-700 underline decoration-neutral-300 underline-offset-2 transition-colors dark:text-neutral-300 dark:decoration-neutral-600;
+  }
+}
+
 .post-content {
   h1 {
     @apply text-3xl font-extrabold mt-5 mb-3;
@@ -101,10 +107,6 @@ html {
 
   li {
     @apply mb-2;
-  }
-
-  a {
-    @apply text-neutral-700 underline decoration-neutral-300 underline-offset-2 transition-colors dark:text-neutral-300 dark:decoration-neutral-600;
   }
 
   img {
@@ -239,6 +241,45 @@ a:hover {
 
 .back-link {
   @apply inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-300;
+}
+
+.link-motion {
+  transition: transform 180ms ease;
+}
+
+.link-motion__label,
+.link-motion__arrow {
+  transition: transform 180ms ease;
+}
+
+.link-motion:hover .link-motion__label,
+.link-motion:hover .link-motion__arrow,
+.link-motion:focus-visible .link-motion__label,
+.link-motion:focus-visible .link-motion__arrow {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .link-motion:hover .link-motion__label,
+.dark .link-motion:hover .link-motion__arrow,
+.dark .link-motion:focus-visible .link-motion__label,
+.dark .link-motion:focus-visible .link-motion__arrow {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link-motion--forward:hover .link-motion__arrow,
+.link-motion--forward:focus-visible .link-motion__arrow {
+  transform: translateX(2px);
+}
+
+.link-motion--back:hover .link-motion__arrow,
+.link-motion--back:focus-visible .link-motion__arrow {
+  transform: translateX(-2px);
 }
 
 .meta-row {

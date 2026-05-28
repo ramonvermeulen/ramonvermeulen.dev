@@ -5,9 +5,9 @@
 
   <article class="lg:mt-8 mt-4 flex flex-col pb-8" role="main">
     <nav class="mb-4">
-      <a href="/blog" class="inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-300">
-        <span aria-hidden="true">←</span>
-        <span>Back to Blog</span>
+      <a href="/blog" class="link-motion link-motion--back inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-300">
+        <span class="link-motion__arrow" aria-hidden="true">←</span>
+        <span class="link-motion__label">Back to Blog</span>
       </a>
     </nav>
 
@@ -62,7 +62,7 @@
       </aside>
     {{ end }}
 
-    <div class="post-content mt-3 w-full font-vollkorn text-[12.5px] leading-6 space-y-4">
+    <div class="content-links post-content mt-3 w-full font-vollkorn text-[12.5px] leading-6 space-y-4">
       {{ .Content }}
     </div>
   </article>

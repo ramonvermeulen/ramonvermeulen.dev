@@ -4,7 +4,9 @@
 {{- with .Title -}}
   {{- $title = printf "%s | %s" . $theme.brandLabel -}}
 {{- end -}}
-{{- $description := or .Description .Summary $theme.description -}}
+{{- $rawDescription := or .Description .Summary $theme.description -}}
+{{- $description := $rawDescription | plainify | htmlUnescape | chomp -}}
+{{- $metaDescription := truncate 160 $description -}}
 {{- $pageImage := partial "theme/page-image.html" . -}}
 {{- $pageImageAbs := "" -}}
 {{- if $pageImage -}}
@@ -13,6 +15,67 @@
   {{- else -}}
     {{- $pageImageAbs = absURL $pageImage -}}
   {{- end -}}
+{{- end -}}
+{{- $isArticle := and .IsPage (eq .Section "blog") -}}
+{{- $authorName := printf "%s %s" $theme.about.first_name $theme.about.last_name -}}
+{{- $personImage := "" -}}
+{{- with $theme.about.portrait -}}
+  {{- $personImage = absURL . -}}
+{{- end -}}
+{{- $sameAs := slice -}}
+{{- with $theme.about.github -}}
+  {{- $sameAs = $sameAs | append . -}}
+{{- end -}}
+{{- with $theme.about.linkedin -}}
+  {{- $sameAs = $sameAs | append . -}}
+{{- end -}}
+{{- $schema := dict -}}
+{{- if .IsHome -}}
+  {{- $website := dict
+    "@type" "WebSite"
+    "@id" (printf "%s#website" site.Home.Permalink)
+    "url" site.Home.Permalink
+    "name" $theme.brandLabel
+    "description" $metaDescription
+  -}}
+  {{- $person := dict
+    "@type" "Person"
+    "@id" (printf "%s#person" site.Home.Permalink)
+    "name" $authorName
+    "url" site.Home.Permalink
+    "jobTitle" $theme.about.role
+    "sameAs" $sameAs
+  -}}
+  {{- with $personImage -}}
+    {{- $person = merge $person (dict "image" .) -}}
+  {{- end -}}
+  {{- $schema = dict
+    "@context" "https://schema.org"
+    "@graph" (slice $website $person)
+  -}}
+{{- else if $isArticle -}}
+  {{- $schema = dict
+    "@context" "https://schema.org"
+    "@type" "BlogPosting"
+    "headline" .Title
+    "description" $metaDescription
+    "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+    "author" (dict "@type" "Person" "name" $authorName)
+    "publisher" (dict "@type" "Person" "name" $authorName "url" site.Home.Permalink)
+  -}}
+  {{- with $pageImageAbs -}}
+    {{- $schema = merge $schema (dict "image" (slice .)) -}}
+  {{- end -}}
+{{- else -}}
+  {{- $schema = dict
+    "@context" "https://schema.org"
+    "@type" "WebPage"
+    "name" $title
+    "description" $metaDescription
+    "url" .Permalink
+  -}}
 {{- end -}}
 {{- $css := resources.Get "css/main.css" -}}
 {{- if $css -}}
@@ -41,23 +104,38 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ $description }}">
+<meta name="description" content="{{ $metaDescription }}">
+<meta name="robots" content="{{ if $isProduction }}index,follow,max-image-preview:large{{ else }}noindex,nofollow{{ end }}">
 <meta name="theme-color" content="{{ $theme.themeColor }}">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="{{ .Permalink }}">
 <title>{{ $title }}</title>
 <meta property="og:site_name" content="{{ $theme.brandLabel }}">
 <meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $description }}">
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:description" content="{{ $metaDescription }}">
+<meta property="og:type" content="{{ if $isArticle }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="{{ if $pageImageAbs }}summary_large_image{{ else }}summary{{ end }}">
 <meta name="twitter:title" content="{{ $title }}">
-<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:description" content="{{ $metaDescription }}">
+{{ if $isArticle }}
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:author" content="{{ $authorName }}">
+  <meta property="article:section" content="Blog">
+  {{ with .Params.tags }}
+    {{ range . }}
+      <meta property="article:tag" content="{{ . }}">
+    {{ end }}
+  {{ end }}
+{{ end }}
 {{ with $pageImageAbs }}
   <meta property="og:image" content="{{ . }}">
+  <meta property="og:image:alt" content="{{ $.Title | default $theme.brandLabel }}">
   <meta name="twitter:image" content="{{ . }}">
 {{ end }}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
 {{ with .OutputFormats.Get "RSS" }}
   <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
 {{ end }}

@@ -21,7 +21,7 @@
     >
       {{ $about.role }}
     </h2>
-    <div class="text-sm">
+    <div class="content-links text-sm">
       {{- range $index, $paragraph := $about.paragraphs -}}
       <div class="mt-4">{{ partial "content/rich-text.html" $paragraph }}</div>
       {{- end -}}
