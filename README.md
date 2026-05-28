@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="logo" data-is-relative="true" src="public/android-chrome-512x512.png" width="200" height="200"/>
+  <img alt="logo" data-is-relative="true" src="static/android-chrome-512x512.png" width="200" height="200"/>
 </div>
 
 <h1 align="center">ramonvermeulen.dev</h1>
