@@ -10,5 +10,8 @@
     "@tailwindcss/cli": "^4.0.14",
     "@tailwindcss/typography": "^0.5.16",
     "tailwindcss": "^4.0.14"
+  },
+  "optionalDependencies": {
+    "@parcel/watcher-linux-x64-glibc": "^2.5.1"
   }
 }
