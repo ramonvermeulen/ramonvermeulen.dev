@@ -7,12 +7,12 @@
     "build": "hugo"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.0.14",
-    "@tailwindcss/typography": "^0.5.16",
-    "tailwindcss": "^4.0.14"
+    "@tailwindcss/cli": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.3.0"
   },
   "optionalDependencies": {
-    "@parcel/watcher-linux-x64-glibc": "^2.5.1",
-    "lightningcss-linux-x64-gnu": "^1.29.2"
+    "@parcel/watcher-linux-x64-glibc": "^2.5.6",
+    "lightningcss-linux-x64-gnu": "^1.32.0"
   }
 }
