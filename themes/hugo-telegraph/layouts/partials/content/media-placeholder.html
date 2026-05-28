@@ -1,0 +1,8 @@
+{{- $title := .Title -}}
+{{- $label := default "Article" .Label -}}
+{{- $class := default "fallback-media" .Class -}}
+
+<div class="{{ $class }}">
+  <span class="fallback-media__label">{{ $label }}</span>
+  <p class="fallback-media__title">{{ $title }}</p>
+</div>

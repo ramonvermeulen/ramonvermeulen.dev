@@ -1,7 +1,7 @@
 {{ define "main" }}
+  {{- $theme := partialCached "theme/settings.html" . -}}
+  {{- $about := $theme.about -}}
 <div class="lg:mt-8 mt-4 flex flex-1 flex-col lg:flex-row" role="main">
-  {{- $theme := partialCached "theme/settings.html" . -}} {{- $about :=
-  $theme.about -}}
   <div class="flex-none order-1 lg:order-2 mt-0 lg:mt-28">
     <img
       src="{{ $about.portrait }}"
@@ -14,8 +14,7 @@
     <h1
       class="lg:text-7xl md:text-6xl sm:text-5xl text-4xl md:text-left text-center font-raleway title-nudge font-[700]"
     >
-      <span class="font-[200]">{{ $about.first_name }}</span> {{
-      $about.last_name }}
+      <span class="font-[200]">{{ $about.first_name }}</span> {{ $about.last_name }}
     </h1>
     <h2
       class="lg:text-2xl md:text-xl text-lg font-[700] md:text-left text-center font-raleway lg:mt-4 mt-0"

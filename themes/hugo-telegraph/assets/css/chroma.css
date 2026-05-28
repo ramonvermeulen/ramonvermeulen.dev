@@ -1,0 +1,185 @@
+.code-block__body .chroma {
+  color: #111827;
+  background: transparent;
+  -webkit-text-size-adjust: none;
+}
+
+.dark .code-block__body .chroma {
+  color: #f3f4f6;
+  background: transparent;
+}
+
+.code-block__body .chroma .err { color: #7f1d1d; }
+.dark .code-block__body .chroma .err { color: #fecaca; }
+
+.code-block__body .chroma .hl { background: rgba(17, 24, 39, 0.05); }
+.dark .code-block__body .chroma .hl { background: rgba(255, 255, 255, 0.08); }
+
+.code-block__body .chroma .k,
+.code-block__body .chroma .kc,
+.code-block__body .chroma .kd,
+.code-block__body .chroma .kn,
+.code-block__body .chroma .kp,
+.code-block__body .chroma .kr,
+.code-block__body .chroma .kt {
+  color: #7f1d1d;
+  font-weight: 600;
+}
+
+.dark .code-block__body .chroma .k,
+.dark .code-block__body .chroma .kc,
+.dark .code-block__body .chroma .kd,
+.dark .code-block__body .chroma .kn,
+.dark .code-block__body .chroma .kp,
+.dark .code-block__body .chroma .kr,
+.dark .code-block__body .chroma .kt {
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.code-block__body .chroma .nf,
+.code-block__body .chroma .fm,
+.code-block__body .chroma .nb,
+.code-block__body .chroma .nd,
+.code-block__body .chroma .nn,
+.code-block__body .chroma .nt {
+  color: #14532d;
+  font-weight: 500;
+}
+
+.dark .code-block__body .chroma .nf,
+.dark .code-block__body .chroma .fm,
+.dark .code-block__body .chroma .nb,
+.dark .code-block__body .chroma .nd,
+.dark .code-block__body .chroma .nn,
+.dark .code-block__body .chroma .nt {
+  color: #bbf7d0;
+  font-weight: 500;
+}
+
+.code-block__body .chroma .nc,
+.code-block__body .chroma .na,
+.code-block__body .chroma .no,
+.code-block__body .chroma .nv,
+.code-block__body .chroma .vc,
+.code-block__body .chroma .vg,
+.code-block__body .chroma .vi,
+.code-block__body .chroma .vm {
+  color: #1f2937;
+}
+
+.dark .code-block__body .chroma .nc,
+.dark .code-block__body .chroma .na,
+.dark .code-block__body .chroma .no,
+.dark .code-block__body .chroma .nv,
+.dark .code-block__body .chroma .vc,
+.dark .code-block__body .chroma .vg,
+.dark .code-block__body .chroma .vi,
+.dark .code-block__body .chroma .vm {
+  color: #d1d5db;
+}
+
+.code-block__body .chroma .s,
+.code-block__body .chroma .sa,
+.code-block__body .chroma .sb,
+.code-block__body .chroma .sc,
+.code-block__body .chroma .dl,
+.code-block__body .chroma .sd,
+.code-block__body .chroma .s1,
+.code-block__body .chroma .s2,
+.code-block__body .chroma .se,
+.code-block__body .chroma .sh,
+.code-block__body .chroma .si,
+.code-block__body .chroma .sr,
+.code-block__body .chroma .ss {
+  color: #7c2d12;
+}
+
+.dark .code-block__body .chroma .s,
+.dark .code-block__body .chroma .sa,
+.dark .code-block__body .chroma .sb,
+.dark .code-block__body .chroma .sc,
+.dark .code-block__body .chroma .dl,
+.dark .code-block__body .chroma .sd,
+.dark .code-block__body .chroma .s1,
+.dark .code-block__body .chroma .s2,
+.dark .code-block__body .chroma .se,
+.dark .code-block__body .chroma .sh,
+.dark .code-block__body .chroma .si,
+.dark .code-block__body .chroma .sr,
+.dark .code-block__body .chroma .ss {
+  color: #fdba74;
+}
+
+.code-block__body .chroma .m,
+.code-block__body .chroma .mb,
+.code-block__body .chroma .mf,
+.code-block__body .chroma .mh,
+.code-block__body .chroma .mi,
+.code-block__body .chroma .il,
+.code-block__body .chroma .mo,
+.code-block__body .chroma .o,
+.code-block__body .chroma .ow {
+  color: #0f766e;
+}
+
+.dark .code-block__body .chroma .m,
+.dark .code-block__body .chroma .mb,
+.dark .code-block__body .chroma .mf,
+.dark .code-block__body .chroma .mh,
+.dark .code-block__body .chroma .mi,
+.dark .code-block__body .chroma .il,
+.dark .code-block__body .chroma .mo,
+.dark .code-block__body .chroma .o,
+.dark .code-block__body .chroma .ow {
+  color: #99f6e4;
+}
+
+.code-block__body .chroma .c,
+.code-block__body .chroma .ch,
+.code-block__body .chroma .cm,
+.code-block__body .chroma .c1,
+.code-block__body .chroma .cs,
+.code-block__body .chroma .cp,
+.code-block__body .chroma .cpf,
+.code-block__body .chroma .go,
+.code-block__body .chroma .gp {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.dark .code-block__body .chroma .c,
+.dark .code-block__body .chroma .ch,
+.dark .code-block__body .chroma .cm,
+.dark .code-block__body .chroma .c1,
+.dark .code-block__body .chroma .cs,
+.dark .code-block__body .chroma .cp,
+.dark .code-block__body .chroma .cpf,
+.dark .code-block__body .chroma .go,
+.dark .code-block__body .chroma .gp {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.code-block__body .chroma .nb,
+.code-block__body .chroma .nf {
+  color: #14532d;
+}
+
+.dark .code-block__body .chroma .nb,
+.dark .code-block__body .chroma .nf {
+  color: #bbf7d0;
+}
+
+.code-block__body .chroma .p {
+  color: #6b7280;
+}
+
+.dark .code-block__body .chroma .p {
+  color: #9ca3af;
+}
+
+.code-block__body .chroma .nx,
+.code-block__body .chroma .w {
+  color: inherit;
+}

@@ -1,0 +1,29 @@
+{{- $type := .Type | default "text" -}}
+{{- $attrs := .Attributes | default dict -}}
+{{- $filename := or (index $attrs "filename") (index $attrs "title") -}}
+{{- $canHighlight := transform.CanHighlight .Type -}}
+{{- $opts := dict "noClasses" false "lineNos" true "lineNumbersInTable" false -}}
+{{- $result := "" -}}
+{{- if $canHighlight -}}
+  {{- $result = transform.HighlightCodeBlock . $opts -}}
+{{- end -}}
+
+<div class="code-block not-prose" data-code-block>
+  <div class="code-block__header">
+    <div class="code-block__meta">
+      {{ with $filename }}
+        <span class="code-block__filename">{{ . }}</span>
+      {{ end }}
+    </div>
+    <button type="button" class="code-block__copy" data-code-copy data-copy-state="idle">Copy</button>
+  </div>
+  <div class="code-block__body">
+    {{- if $canHighlight -}}
+      {{- $result.Wrapped -}}
+    {{- else -}}
+      {{- $lines := split (trim .Inner "\n") "\n" -}}
+      <pre tabindex="0" class="chroma"><code class="language-{{ $type }}" data-lang="{{ $type }}">{{- range $index, $line := $lines -}}<span class="line"><span class="ln">{{ add $index 1 }}</span><span class="cl">{{- if eq $line "" -}}&#8203;{{- else -}}{{ $line | htmlEscape }}{{- end -}}</span></span>
+{{- end -}}</code></pre>
+    {{- end -}}
+  </div>
+</div>

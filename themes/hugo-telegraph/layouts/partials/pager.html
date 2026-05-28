@@ -1,0 +1,26 @@
+{{- $p := .Paginator -}}
+{{- if gt $p.TotalPages 1 -}}
+  <nav class="mt-24 mb-2 flex flex-col sm:flex-row items-center justify-between gap-3" aria-label="Pagination">
+    <div class="min-w-0">
+      {{ if $p.HasPrev }}
+        <a href="{{ $p.Prev.URL }}" class="inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-400">
+          <span aria-hidden="true">←</span>
+          <span>Newer posts</span>
+        </a>
+      {{ end }}
+    </div>
+
+    <p class="text-[0.64rem] font-raleway uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400">
+      Page {{ $p.PageNumber }} of {{ $p.TotalPages }}
+    </p>
+
+    <div class="min-w-0 flex justify-end">
+      {{ if $p.HasNext }}
+        <a href="{{ $p.Next.URL }}" class="inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-400">
+          <span>Older posts</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      {{ end }}
+    </div>
+  </nav>
+{{ end }}

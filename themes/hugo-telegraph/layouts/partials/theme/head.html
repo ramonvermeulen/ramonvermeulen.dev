@@ -1,5 +1,19 @@
 {{- $theme := partialCached "theme/settings.html" . -}}
 {{- $isProduction := hugo.IsProduction -}}
+{{- $title := $theme.brandLabel -}}
+{{- with .Title -}}
+  {{- $title = printf "%s | %s" . $theme.brandLabel -}}
+{{- end -}}
+{{- $description := or .Description .Summary $theme.description -}}
+{{- $pageImage := partial "theme/page-image.html" . -}}
+{{- $pageImageAbs := "" -}}
+{{- if $pageImage -}}
+  {{- if or (hasPrefix $pageImage "http://") (hasPrefix $pageImage "https://") -}}
+    {{- $pageImageAbs = $pageImage -}}
+  {{- else -}}
+    {{- $pageImageAbs = absURL $pageImage -}}
+  {{- end -}}
+{{- end -}}
 {{- $css := resources.Get "css/main.css" -}}
 {{- if $css -}}
   {{- if $isProduction -}}
@@ -22,14 +36,31 @@
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDarkMode = theme === "dark" || (!theme && prefersDark);
     document.documentElement.classList.toggle("dark", isDarkMode);
+    document.documentElement.style.colorScheme = isDarkMode ? "dark" : "light";
   })();
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ or .Description $theme.description }}">
+<meta name="description" content="{{ $description }}">
 <meta name="theme-color" content="{{ $theme.themeColor }}">
+<meta name="color-scheme" content="light dark">
 <link rel="canonical" href="{{ .Permalink }}">
-<title>{{ .Title }} | {{ $theme.brandLabel }}</title>
+<title>{{ $title }}</title>
+<meta property="og:site_name" content="{{ $theme.brandLabel }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta name="twitter:card" content="{{ if $pageImageAbs }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{ with $pageImageAbs }}
+  <meta property="og:image" content="{{ . }}">
+  <meta name="twitter:image" content="{{ . }}">
+{{ end }}
+{{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+{{ end }}
 <link rel="preload" href="/fonts/raleway-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/vollkorn-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">

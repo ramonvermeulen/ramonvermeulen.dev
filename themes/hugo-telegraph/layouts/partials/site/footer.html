@@ -1,6 +1,10 @@
 {{- $theme := partialCached "theme/settings.html" . -}}
-<footer class="text-gray-700 dark:text-gray-200 py-6 mt-16 border-t border-gray-300">
-  <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+{{- $pager := .Scratch.Get "footerPager" -}}
+{{- with $pager -}}
+  {{ partial "pager.html" (dict "Paginator" .) }}
+{{- end -}}
+<footer class="text-gray-700 dark:text-gray-200 py-6 {{ if $pager }}mt-1{{ else }}mt-16{{ end }} border-t border-gray-300">
+  <div class="pt-5 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
     {{- if and $theme.sourceCodeLabel $theme.sourceCodeURL -}}
       <p class="text-sm">Source code can be found on <a href="{{ $theme.sourceCodeURL }}" target="_blank" rel="noreferrer noopener" class="font-semibold hover:underline">{{- $theme.sourceCodeLabel -}}</a>.</p>
     {{- end -}}

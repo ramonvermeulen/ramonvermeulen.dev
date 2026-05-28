@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <section class="mt-6 flex flex-col pb-10 md:mt-8">
+    <nav class="mb-4">
+      {{ partial "content/back-link.html" (dict "Href" "/tags/" "Label" "All tags") }}
+    </nav>
+
+    {{ partial "content/page-header.html" (dict
+      "eyebrow" "Tag archive"
+      "title" .Title
+      "titleClass" "section-title"
+    ) }}
+
+    {{ $pages := .Pages.ByDate.Reverse }}
+    {{ $paginator := .Paginate $pages 5 }}
+    {{ if gt (len $paginator.Pages) 0 }}
+      <div class="mt-8 space-y-4">
+        {{ range $index, $page := $paginator.Pages }}
+          {{ partial "blog-card.html" (dict "Page" $page "Reverse" (eq (mod $index 2) 1)) }}
+        {{ end }}
+      </div>
+      {{ .Scratch.Set "footerPager" $paginator }}
+    {{ else }}
+      <div class="mt-8 text-sm text-neutral-700 dark:text-neutral-300">
+        No posts for this tag yet.
+      </div>
+    {{ end }}
+  </section>
+{{ end }}

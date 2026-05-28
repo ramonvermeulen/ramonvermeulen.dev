@@ -4,14 +4,24 @@ defaultContentLanguage = "en"
 enableRobotsTXT = true
 summaryLength = 30
 paginate = 10
-disableKinds = ["taxonomy", "term"]
 theme = "hugo-telegraph"
 themesDir = "themes"
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    codeFences = true
+    lineNos = false
+    noClasses = false
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = false
+    startLevel = 2
 
 [security]
   [security.node]
@@ -37,6 +47,11 @@ themesDir = "themes"
 [outputs]
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
+
+[taxonomies]
+  tag = "tags"
 
 [params]
   description = "Software & Cloud Engineer with a strong background in Google Cloud Platform."

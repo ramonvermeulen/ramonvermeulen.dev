@@ -1,14 +1,69 @@
 {{ define "main" }}
-  <article class="lg:mt-8 mt-4 flex flex-1 flex-col pb-8" role="main">
-    {{ partial "content/page-header.html" (dict
-      "eyebrow" (.Date.Format "2 Jan 2006")
-      "title" .Title
-      "titleClass" "text-4xl sm:text-6xl font-[800] mb-4 font-raleway"
-    ) }}
-    <div class="mt-8 max-w-3xl">
-      <div class="font-vollkorn text-[14px] leading-5 space-y-5">
-        {{ .Content }}
+  {{- $image := partial "theme/page-image.html" . -}}
+  {{- $toc := .TableOfContents -}}
+  {{- $hasTOC := in $toc "<li>" -}}
+
+  <article class="lg:mt-8 mt-4 flex flex-col pb-8" role="main">
+    <nav class="mb-4">
+      <a href="/blog" class="inline-flex items-center gap-2 text-xs font-raleway text-neutral-600 dark:text-neutral-300">
+        <span aria-hidden="true">←</span>
+        <span>Back to Blog</span>
+      </a>
+    </nav>
+
+    <header class="overflow-hidden border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/5 backdrop-blur-md shadow-none">
+      <div class="media-frame relative">
+        {{ if $image }}
+          <img
+            src="{{ $image }}"
+            alt="{{ .Title }}"
+            class="h-52 md:h-[20rem] w-full object-cover"
+            fetchpriority="high"
+          />
+        {{ else }}
+          {{ partial "content/media-placeholder.html" (dict "Title" .Title "Label" "Technical article" "Class" "fallback-media min-h-[13rem] md:min-h-[20rem] justify-end") }}
+        {{ end }}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+        <div class="absolute inset-0 flex flex-col justify-between p-5 md:p-7">
+          <div class="flex flex-wrap items-center gap-3 text-[0.58rem] font-raleway uppercase tracking-[0.26em] text-white">
+            <span>{{ .Date.Format "2 Jan 2006" }}</span>
+            <span class="text-white">•</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+          <div class="max-w-4xl">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-[800] font-raleway text-white leading-tight max-w-3xl">
+              {{ .Title }}
+            </h1>
+            {{ with .Params.description }}
+              <p class="mt-2 max-w-3xl text-[13px] sm:text-sm text-white/82 leading-relaxed">
+                {{ . }}
+              </p>
+            {{ end }}
+          </div>
+        </div>
       </div>
+      {{ with .Params.tags }}
+        <div class="flex flex-wrap gap-2 px-5 py-4 md:px-7 md:py-5">
+          {{ range first 6 . }}
+            {{- $tag := . -}}
+            {{ partial "content/tag-chip.html" (dict
+              "Href" (printf "/tags/%s/" ($tag | urlize))
+              "Label" $tag
+            ) }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </header>
+
+    {{ if $hasTOC }}
+      <aside class="toc-panel mt-5">
+        <p class="toc-panel__title">On this page</p>
+        {{ $toc }}
+      </aside>
+    {{ end }}
+
+    <div class="post-content mt-3 w-full font-vollkorn text-[12.5px] leading-6 space-y-4">
+      {{ .Content }}
     </div>
   </article>
 {{ end }}

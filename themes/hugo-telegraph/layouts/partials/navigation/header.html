@@ -3,7 +3,7 @@
   <div class="flex justify-between items-center w-full md:w-auto" role="banner">
     {{ partial "navigation/brand.html" . }}
     <div class="flex items-center">
-      {{ partial "navigation/theme-toggle.html" (dict "buttonClass" "md:hidden mr-2") }}
+      {{ partial "navigation/theme-toggle.html" (dict "buttonClass" "mr-2 md:hidden") }}
       <button id="menu-toggle" class="md:hidden text-2xl w-8 h-8 flex items-center justify-center leading-none" aria-label="Menu" aria-expanded="false" data-menu-toggle>
         <i class="bx bx-menu" data-menu-icon></i>
       </button>

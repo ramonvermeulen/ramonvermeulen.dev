@@ -1,0 +1,11 @@
+{{- $href := .Href -}}
+{{- $label := .Label -}}
+{{- $count := .Count -}}
+{{- $class := default "tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]" .Class -}}
+
+<a href="{{ $href }}" class="{{ $class }}">
+  <span>{{ $label }}</span>
+  {{ with $count }}
+    <span class="ml-1 text-[10px] opacity-70">({{ . }})</span>
+  {{ end }}
+</a>

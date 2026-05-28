@@ -1,0 +1,18 @@
+{{- $page := .Page -}}
+{{- $class := default "meta-row" .Class -}}
+{{- $featured := .Featured -}}
+{{- $showReadingTime := true -}}
+{{- with .ShowReadingTime -}}
+  {{- $showReadingTime = . -}}
+{{- end -}}
+
+<div class="{{ $class }}">
+  {{ with $featured }}
+    <span class="meta-badge">{{ . }}</span>
+  {{ end }}
+  <span>{{ $page.Date.Format "2 Jan 2006" }}</span>
+  {{ if $showReadingTime }}
+    <span class="meta-divider" aria-hidden="true"></span>
+    <span>{{ $page.ReadingTime }} min read</span>
+  {{ end }}
+</div>

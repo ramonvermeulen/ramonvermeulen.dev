@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <section class="mt-6 flex flex-col pb-10 md:mt-8">
+    {{ partial "content/page-header.html" (dict
+      "eyebrow" "Browse by tag"
+      "title" "Tags"
+      "titleClass" "section-title"
+    ) }}
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      {{ range .Data.Terms.Alphabetical }}
+        {{ partial "content/tag-chip.html" (dict
+          "Href" .Page.RelPermalink
+          "Label" .Page.Title
+          "Count" .Count
+          "Class" "tech-chip inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm"
+        ) }}
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

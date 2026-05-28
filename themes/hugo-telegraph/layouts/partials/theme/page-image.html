@@ -1,0 +1,10 @@
+{{- $page := . -}}
+{{- $image := "" -}}
+{{- with $page.Params.image -}}
+  {{- $image = . -}}
+{{- else -}}
+  {{- with $page.Resources.GetMatch "cover*" -}}
+    {{- $image = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- return $image -}}

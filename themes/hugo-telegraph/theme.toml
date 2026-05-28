@@ -1,0 +1,27 @@
+name = "Hugo Telegraph"
+license = "Apache 2.0"
+licenselink = "https://github.com/ramonvermeulen/ramonvermeulen.dev/blob/main/LICENSE"
+description = "A polished Hugo theme for personal sites and technical blogs."
+homepage = "https://ramonvermeulen.dev"
+demosite = "https://ramonvermeulen.dev"
+tags = [
+  "blog",
+  "portfolio",
+  "responsive",
+  "dark-mode",
+  "tailwind",
+  "technical-writing",
+]
+features = [
+  "blog",
+  "code-blocks",
+  "responsive",
+  "taxonomy",
+  "dark mode",
+  "experience",
+]
+min_version = "0.161.0"
+
+[author]
+name = "Ramon Vermeulen"
+homepage = "https://ramonvermeulen.dev"
