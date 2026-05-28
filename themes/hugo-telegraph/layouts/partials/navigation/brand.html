@@ -1,0 +1,4 @@
+{{- $theme := partialCached "theme/settings.html" . -}}
+<a href="{{ relLangURL "/" }}" class="text-2xl md:text-left text-center py-2 font-bold">
+  <span class="font-bold">{{ $theme.siteName }}</span><span class="font-normal">{{ $theme.siteDomainExtension }}</span>
+</a>

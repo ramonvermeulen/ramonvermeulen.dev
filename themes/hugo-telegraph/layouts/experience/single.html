@@ -1,8 +1,12 @@
 {{ define "main" }}
   <section class="flex flex-col flex-1 mt-4 lg:mt-8 font-raleway" role="main">
-    <h1 class="text-4xl sm:text-6xl font-[800]"><span class="font-[200]">Work</span> Experience</h1>
+    {{ partial "content/page-header.html" (dict
+      "title" "<span class=\"font-[200]\">Work</span> Experience"
+      "titleClass" "text-4xl sm:text-6xl font-[800]"
+    ) }}
     <div class="relative mt-8">
-      {{ range hugo.Data.experience.positions }}
+      {{- $theme := partialCached "theme/settings.html" . -}}
+      {{- range $theme.experience.positions }}
         {{ partial "experience-role.html" . }}
       {{ end }}
     </div>

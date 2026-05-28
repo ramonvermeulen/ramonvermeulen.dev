@@ -1,0 +1,20 @@
+{{- $about := merge (default dict hugo.Data.about) (default dict site.Params.about) -}}
+{{- $experience := merge (default dict hugo.Data.experience) (default dict site.Params.experience) -}}
+{{- $siteName := default "" site.Params.siteName -}}
+{{- $siteDomainExtension := default "" site.Params.siteDomainExtension -}}
+{{- $brandLabel := default site.Title site.Params.brandLabel -}}
+{{- if and $siteName $siteDomainExtension -}}
+  {{- $brandLabel = printf "%s%s" $siteName $siteDomainExtension -}}
+{{- end -}}
+{{- return dict
+  "brandLabel" $brandLabel
+  "siteName" $siteName
+  "siteDomainExtension" $siteDomainExtension
+  "description" (default site.Params.description "")
+  "themeColor" (default "#111111" site.Params.themeColor)
+  "backgroundImage" (default "" site.Params.backgroundImage)
+  "sourceCodeLabel" (default "" site.Params.sourceCodeLabel)
+  "sourceCodeURL" (default "" site.Params.sourceCodeURL)
+  "about" $about
+  "experience" $experience
+-}}

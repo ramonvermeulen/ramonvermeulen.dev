@@ -1,16 +1,10 @@
 {{ define "main" }}
   <article class="lg:mt-8 mt-4 flex flex-1 flex-col pb-8" role="main">
-    <div class="max-w-3xl">
-      <p class="text-sm font-raleway text-neutral-500 dark:text-neutral-400 mb-2">
-        {{ .Date.Format "2 Jan 2006" }}
-      </p>
-      <h1 class="text-4xl sm:text-6xl font-[800] mb-4 font-raleway">{{ .Title }}</h1>
-      {{ with .Params.description }}
-        <p class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
-          {{ . }}
-        </p>
-      {{ end }}
-    </div>
+    {{ partial "content/page-header.html" (dict
+      "eyebrow" (.Date.Format "2 Jan 2006")
+      "title" .Title
+      "titleClass" "text-4xl sm:text-6xl font-[800] mb-4 font-raleway"
+    ) }}
     <div class="mt-8 max-w-3xl">
       <div class="font-vollkorn text-[14px] leading-5 space-y-5">
         {{ .Content }}
