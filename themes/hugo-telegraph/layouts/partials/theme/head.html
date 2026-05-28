@@ -1,0 +1,45 @@
+{{- $theme := partialCached "theme/settings.html" . -}}
+{{- $isProduction := hugo.IsProduction -}}
+{{- $css := resources.Get "css/main.css" -}}
+{{- if $css -}}
+  {{- if $isProduction -}}
+    {{- $css = $css | css.TailwindCSS | minify | fingerprint -}}
+  {{- else -}}
+    {{- $css = $css | css.TailwindCSS -}}
+  {{- end -}}
+{{- end -}}
+{{- $js := resources.Get "js/site.js" -}}
+{{- if $js -}}
+  {{- if $isProduction -}}
+    {{- $js = $js | js.Build | minify | fingerprint -}}
+  {{- else -}}
+    {{- $js = $js | js.Build -}}
+  {{- end -}}
+{{- end -}}
+<script>
+  (function () {
+    const theme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDarkMode = theme === "dark" || (!theme && prefersDark);
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{ or .Description $theme.description }}">
+<meta name="theme-color" content="{{ $theme.themeColor }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<title>{{ .Title }} | {{ $theme.brandLabel }}</title>
+<link rel="preload" href="/fonts/raleway-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/vollkorn-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" sizes="any" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+{{ with $css }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+{{ end }}
+{{ with $js }}
+  <script defer src="{{ .RelPermalink }}"></script>
+{{ end }}

@@ -41,7 +41,7 @@ html {
 .theme-toggle {
 }
 
-.dark .theme-toggle:hover {
+.theme-toggle:hover {
   background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
 }
 

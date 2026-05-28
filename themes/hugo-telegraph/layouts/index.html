@@ -1,35 +1,44 @@
 {{ define "main" }}
-  <div class="lg:mt-8 mt-4 flex flex-1 flex-col lg:flex-row" role="main">
-    <div class="flex-none order-1 lg:order-2 mt-0 lg:mt-28">
-      <img
-        src="{{ hugo.Data.about.portrait }}"
-        fetchpriority="high"
-        alt="Portrait of {{ hugo.Data.about.name }}"
-        class="w-[242px] h-[299.5px] object-cover rounded-lg md:ml-1 md:m-4 md:mr-0 mx-auto grayscale dark:grayscale-0 mb-2 md:mb-0"
-      />
+<div class="lg:mt-8 mt-4 flex flex-1 flex-col lg:flex-row" role="main">
+  {{- $theme := partialCached "theme/settings.html" . -}} {{- $about :=
+  $theme.about -}}
+  <div class="flex-none order-1 lg:order-2 mt-0 lg:mt-28">
+    <img
+      src="{{ $about.portrait }}"
+      fetchpriority="high"
+      alt="Portrait of {{ $about.first_name }} {{ $about.last_name }}"
+      class="w-[242px] h-[299.5px] object-cover rounded-lg md:ml-1 md:m-4 md:mr-0 mx-auto grayscale dark:grayscale-0 mb-2 md:mb-0"
+    />
+  </div>
+  <div class="flex-1 order-2 lg:order-1 text-sm">
+    <h1
+      class="lg:text-7xl md:text-6xl sm:text-5xl text-4xl md:text-left text-center font-raleway title-nudge font-[700]"
+    >
+      <span class="font-[200]">{{ $about.first_name }}</span> {{
+      $about.last_name }}
+    </h1>
+    <h2
+      class="lg:text-2xl md:text-xl text-lg font-[700] md:text-left text-center font-raleway lg:mt-4 mt-0"
+    >
+      {{ $about.role }}
+    </h2>
+    <div class="text-sm">
+      {{- range $index, $paragraph := $about.paragraphs -}}
+      <div class="mt-4">{{ partial "content/rich-text.html" $paragraph }}</div>
+      {{- end -}}
     </div>
-    <div class="flex-1 order-2 lg:order-1 text-sm">
-      <h1 class="lg:text-7xl md:text-6xl sm:text-5xl text-4xl md:text-left text-center font-raleway font-[700] title-nudge"><span class="font-[200]">Ramon</span> Vermeulen</h1>
-      <h2 class="lg:text-2xl md:text-xl text-lg font-[700] md:text-left text-center font-raleway lg:mt-4 mt-0">{{ hugo.Data.about.role }}</h2>
-      <div class="text-sm">
-        {{- range $index, $paragraph := hugo.Data.about.paragraphs -}}
-          <p class="mt-4">{{ $paragraph | safeHTML }}</p>
-        {{- end -}}
-      </div>
-      <div class="flex items-center space-x-2 mt-4">
-        <p class="text-sm">Find me on</p>
-        <a href="{{ hugo.Data.about.github }}" target="_blank" aria-label="Github" class="text-2xl hover:text-gray-500 dark:text-gray-200 dark:hover:text-white">
-          <i class='bx bxl-github social-icon'></i>
-        </a>
-        <a href="{{ hugo.Data.about.linkedin }}" target="_blank" aria-label="LinkedIn" class="text-2xl hover:text-gray-500 dark:text-gray-200 dark:hover:text-white">
-          <i class='bx bxl-linkedin social-icon'></i>
-        </a>
-      </div>
-      <div class="flex items-center space-x-2">
-        <a href="mailto:{{ hugo.Data.about.email }}" class="cta-chip cursor-pointer mt-2 inline-flex items-center justify-center text-sm font-medium" aria-label="Get in touch">
-          <span>Get in touch</span>
-        </a>
-      </div>
+    {{ partial "content/social-links.html" (dict "label" "Find me on" "links"
+    (slice (dict "label" "GitHub" "url" $about.github "icon" "bxl-github") (dict
+    "label" "LinkedIn" "url" $about.linkedin "icon" "bxl-linkedin") ) ) }}
+    <div class="flex items-center space-x-2">
+      <a
+        href="mailto:{{ $about.email }}"
+        class="cta-chip cursor-pointer mt-2 inline-flex items-center justify-center text-sm font-medium"
+        aria-label="Get in touch"
+      >
+        <span>Get in touch</span>
+      </a>
     </div>
   </div>
+</div>
 {{ end }}

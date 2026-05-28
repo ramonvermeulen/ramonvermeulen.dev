@@ -1,0 +1,14 @@
+{{- $links := .links -}}
+{{- if $links -}}
+  <div class="flex items-center space-x-2 mt-4">
+    <p class="text-sm">{{ default "Find me on" .label }}</p>
+    {{ range $links }}
+      {{- $link := . -}}
+      {{- with $link.url -}}
+        <a href="{{ . }}" target="_blank" rel="noreferrer noopener" aria-label="{{ $link.label }}" class="text-2xl hover:text-gray-500 dark:text-gray-200 dark:hover:text-white">
+          <i class='bx {{ $link.icon }} social-icon'></i>
+        </a>
+      {{- end -}}
+    {{ end }}
+  </div>
+{{- end -}}

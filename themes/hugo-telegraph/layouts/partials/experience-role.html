@@ -23,7 +23,7 @@
       <div class="mt-2 flex flex-col gap-1">
         <div class="inline-flex items-center gap-1">
           <i class="bx bxs-briefcase text-sm leading-none"></i>
-          <a href="{{ .company_website }}" target="_blank">
+          <a href="{{ .company_website }}" target="_blank" rel="noreferrer noopener">
             <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ .company_name }}</span>
           </a>
         </div>
@@ -40,7 +40,7 @@
           <ul class="flex flex-wrap gap-1">
             {{ range . }}
               <li>
-                <a href="{{ .url }}" target="_blank" rel="noreferrer" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">{{ .name }}</a>
+                <a href="{{ .url }}" target="_blank" rel="noreferrer noopener" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">{{ .name }}</a>
               </li>
             {{ end }}
           </ul>

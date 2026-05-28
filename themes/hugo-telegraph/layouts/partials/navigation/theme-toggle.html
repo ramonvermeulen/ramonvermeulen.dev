@@ -1,0 +1,11 @@
+{{- $buttonClass := default "" .buttonClass -}}
+{{- $iconClass := default "text-xl absolute text-white leading-none" .iconClass -}}
+<button
+  type="button"
+  class="theme-toggle cursor-pointer bg-gray-300 dark:bg-gray-400 hover:bg-gray-500 rounded-full w-8 h-8 flex items-center justify-center {{ $buttonClass }}"
+  data-theme-toggle
+  aria-pressed="false"
+  aria-label="Toggle theme">
+  <i class="bx bxs-sun {{ $iconClass }} hidden invisible dark:block dark:visible"></i>
+  <i class="bx bxs-moon {{ $iconClass }} block visible dark:hidden dark:invisible"></i>
+</button>

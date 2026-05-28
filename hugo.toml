@@ -42,6 +42,10 @@ themesDir = "themes"
   description = "Software & Cloud Engineer with a strong background in Google Cloud Platform."
   themeColor = "#111111"
   backgroundImage = "/img/background.png"
+  siteName = "ramonvermeulen"
+  siteDomainExtension = ".dev"
+  sourceCodeLabel = "GitHub"
+  sourceCodeURL = "https://github.com/ramonvermeulen/ramonvermeulen.dev"
 
 [menu]
 [[menu.main]]

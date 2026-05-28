@@ -1,0 +1,22 @@
+{{- $current := .current -}}
+{{- $menu := site.Menus.main -}}
+<nav id="menu" class="w-full md:w-auto font-raleway menu-panel md:flex mt-2 md:mt-0" data-menu-panel aria-hidden="true">
+  <ul class="flex flex-col md:flex-row md:space-x-6 text-lg items-start md:items-center dark:text-gray-200">
+    {{ range $menu }}
+      {{- $isActive := false -}}
+      {{- with .Page -}}
+        {{- $isActive = or (eq $current .RelPermalink) (and .IsHome (eq $current "/")) -}}
+      {{- else -}}
+        {{- $isActive = eq $current .URL -}}
+      {{- end -}}
+      <li class="md:mb-0 mb-2 md:border-0 border-b-1">
+        <a href="{{ .URL }}" class="{{ if $isActive }}font-semibold{{ end }} hover:text-gray-700 hover:underline dark:hover:text-white">
+          {{ .Name }}
+        </a>
+      </li>
+    {{ end }}
+    <li class="md:mb-0 mb-2 hidden md:block">
+      {{ partial "navigation/theme-toggle.html" (dict "buttonClass" "md:w-10 md:h-10" "iconClass" "text-xl md:text-2xl absolute text-white leading-none") }}
+    </li>
+  </ul>
+</nav>

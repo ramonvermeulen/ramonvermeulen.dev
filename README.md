@@ -1,40 +1,39 @@
-# ramonvermeulen.dev
+<div align="center">
+  <img alt="logo" data-is-relative="true" src="public/android-chrome-512x512.png" width="200" height="200"/>
+</div>
 
-Personal website built with [Hugo](https://gohugo.io/).
+<h1 align="center">ramonvermeulen.dev</h1>
 
-The site uses a local Hugo theme under `themes/hugo-telegraph` and is deployed
-as static website on a GCP Bucket.
+<p align="center">
+  <a href="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_hugo.yml">
+    <img alt="CD" src="https://github.com/ramonvermeulen/ramonvermeulen.dev/actions/workflows/cd_hugo.yml/badge.svg">
+  </a>
+</p>
 
-## Layout
+Repository containing the source code for my personal website [**ramonvermeulen.dev**](https://ramonvermeulen.dev).
+The site is built with [**Hugo**](https://gohugo.io/) and [**Tailwind CSS**](https://tailwindcss.com).
+
+## Prerequisites
+
+- [**Hugo Extended 0.161+**](https://gohugo.io/installation/)
+- [**Node.js 22+**](https://nodejs.org/en/download/)
+- [**npm**](https://nodejs.org/en/download/)
+
+## Directory Structure
 
 ```text
-ramonvermeulen.dev/
-├── content/              # pages and blog section content
-├── data/                 # structured site data such as about/experience
-├── static/               # site-specific static files
-├── themes/
-│   └── hugo-telegraph/   # local Hugo theme
+ramonvermeulen.dev
+├── content/              # pages and blog content
+├── data/                 # structured site data
+├── static/               # site assets served as-is
+├── themes/hugo-telegraph # local Hugo theme
 ├── hugo.toml             # site configuration
-├── package.json          # Tailwind dependencies used by Hugo Pipes
 └── README.md
 ```
 
-## Requirements
-
-- Hugo `0.161+`
-- Node.js `23+` with `npm`
-
-## Local development
-
-Install the Tailwind dependencies once:
+## Local Development
 
 ```bash
 npm install
-```
-
-Then run the site:
-
-```bash
 hugo server
 ```
-

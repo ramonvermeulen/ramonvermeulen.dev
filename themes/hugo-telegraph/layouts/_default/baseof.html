@@ -3,7 +3,8 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body style="background-image: url('{{ site.Params.backgroundImage }}');" class="bg-cover bg-fixed bg-center bg-no-repeat font-vollkorn text-[14px] leading-5 bg-white dark:bg-black text-black dark:text-white">
+{{- $theme := partialCached "theme/settings.html" . -}}
+<body{{ with $theme.backgroundImage }} style="background-image: url('{{ . }}');"{{ end }} class="bg-cover bg-fixed bg-center bg-no-repeat font-vollkorn text-[14px] leading-5 bg-white dark:bg-black text-black dark:text-white">
   <div class="max-w-[900px] mx-auto min-h-screen flex flex-col lg:px-0 px-4">
     <div role="navigation">
       {{ partial "header.html" . }}
