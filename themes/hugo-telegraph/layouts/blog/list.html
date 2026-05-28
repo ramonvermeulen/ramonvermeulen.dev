@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <div class="lg:mt-8 mt-4 flex flex-1 flex-col pb-8" role="main">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl sm:text-6xl font-[800] mb-4 font-raleway title-nudge"><span class="font-[200]">Blog</span> Posts</h1>
+      {{ with .Content }}
+        <p class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
+          {{ . }}
+        </p>
+      {{ end }}
+    </div>
+
+    {{ $pages := .RegularPages }}
+    {{ if gt (len $pages) 0 }}
+      <div class="mt-8 space-y-4">
+        {{ range $pages }}
+          {{ partial "blog-card.html" . }}
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="mt-8 text-sm text-neutral-700 dark:text-neutral-300">
+        No posts yet.
+      </div>
+    {{ end }}
+  </div>
+{{ end }}

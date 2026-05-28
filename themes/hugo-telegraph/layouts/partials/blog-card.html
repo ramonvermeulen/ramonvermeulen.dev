@@ -1,0 +1,16 @@
+<article class="rounded-2xl border border-gray-300/70 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-5 md:p-6">
+  <p class="text-xs font-raleway text-neutral-500 dark:text-neutral-400">{{ .Date.Format "2 Jan 2006" }}</p>
+  <h2 class="mt-2 text-2xl font-raleway font-bold">
+    <a href="{{ .RelPermalink }}" class="hover:text-gray-600 dark:hover:text-gray-300">{{ .LinkTitle }}</a>
+  </h2>
+  {{ with .Params.description }}
+    <p class="mt-3 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">{{ . }}</p>
+  {{ end }}
+  {{ with .Params.tags }}
+    <ul class="mt-4 flex flex-wrap gap-2">
+      {{ range . }}
+        <li class="text-xs px-2 py-1 rounded-full bg-black/5 dark:bg-white/10">{{ . }}</li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</article>

@@ -1,0 +1,51 @@
+<article class="relative ml-4 pl-10">
+  <span class="absolute top-[8px] -bottom-[8px] left-0 w-px bg-black dark:bg-white"></span>
+  <span class="absolute -left-2 top-[8px] h-4 w-4 rounded-full bg-black dark:bg-white"></span>
+  <div class="md:grid md:grid-cols-[160px_1fr]">
+    <div class="hidden md:block mt-[8px]">
+      <p class="text-xs font-medium text-neutral-500 dark:text-neutral-100">
+        <span>{{ .period }}</span>
+      </p>
+      <p class="text-xs text-neutral-400 dark:text-neutral-400 mt-1">
+        {{ partial "experience-duration.html" . }}
+      </p>
+    </div>
+    <div class="space-y-1 pb-8 pt-2 md:pt-0">
+      <p class="md:hidden text-xs font-medium text-neutral-500 dark:text-neutral-400">
+        <span>{{ .period }}</span>
+      </p>
+      <p class="md:hidden text-xs text-neutral-400 dark:text-neutral-400 mt-1">
+        {{ partial "experience-duration.html" . }}
+      </p>
+      <p class="font-semibold md:text-2xl text-xl text-neutral-900 dark:text-neutral-100 m-0">
+        {{ .title }}
+      </p>
+      <div class="mt-2 flex flex-col gap-1">
+        <div class="inline-flex items-center gap-1">
+          <i class="bx bxs-briefcase text-sm leading-none"></i>
+          <a href="{{ .company_website }}" target="_blank">
+            <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ .company_name }}</span>
+          </a>
+        </div>
+        <div class="inline-flex items-center gap-1">
+          <i class="bx bx-current-location text-sm leading-none"></i>
+          <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ .location }}</span>
+        </div>
+      </div>
+      <div class="mt-4 font-vollkorn text-[13px]">
+        <p>{{ .description }}</p>
+      </div>
+      {{ with .technologies }}
+        <div class="flex items-center gap-2 mt-4 text-xs text-neutral-700 dark:text-neutral-300">
+          <ul class="flex flex-wrap gap-1">
+            {{ range . }}
+              <li>
+                <a href="{{ .url }}" target="_blank" rel="noreferrer" class="tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]">{{ .name }}</a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</article>

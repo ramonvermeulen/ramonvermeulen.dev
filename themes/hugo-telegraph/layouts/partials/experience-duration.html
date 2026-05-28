@@ -1,0 +1,30 @@
+{{- $start := time .start_date -}}
+{{- $end := now -}}
+{{- if and .end_date (ne (printf "%v" .end_date) "") -}}
+  {{- $end = time .end_date -}}
+{{- end -}}
+{{- $months := add (mul (sub $end.Year $start.Year) 12) (add (sub (int $end.Month) (int $start.Month)) 1) -}}
+{{- if lt $months 0 -}}
+  {{- $months = 0 -}}
+{{- end -}}
+{{- $years := div $months 12 -}}
+{{- $remaining := mod $months 12 -}}
+{{- if eq $years 0 -}}
+  {{- if eq $months 1 -}}
+    (1 month)
+  {{- else -}}
+    ({{ $months }} months)
+  {{- end -}}
+{{- else if eq $remaining 0 -}}
+  {{- if eq $years 1 -}}
+    (1 year)
+  {{- else -}}
+    ({{ $years }} years)
+  {{- end -}}
+{{- else -}}
+  {{- if eq $years 1 -}}
+    (1 year, {{ $remaining }} months)
+  {{- else -}}
+    ({{ $years }} years, {{ $remaining }} months)
+  {{- end -}}
+{{- end -}}

@@ -21,12 +21,21 @@ test-*.md
 go.work
 go.work.sum
 
+# Hugo build output
+public/
+resources/
+hugo_stats.json
+.hugo_build.lock
+
+# Node dependencies
+node_modules/
+themes/**/node_modules/
+
 # env file
 .env
 .idea
 *.iml
 *.min.js
 tailwind.min.css
-node_modules
 example-blogpost.md
 .envrc

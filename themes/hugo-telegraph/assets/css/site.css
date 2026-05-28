@@ -1,0 +1,210 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.title-nudge {
+  transform: translateX(-4px);
+}
+
+.cta-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 26px;
+  text-decoration: none;
+  color: #111827;
+  background: #d1d5db;
+  border-radius: 8px;
+}
+
+.dark .cta-chip {
+  color: #ffffff;
+  background: #4b5563;
+}
+
+.cta-chip:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: #111827;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.dark .cta-chip:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  color: #ffffff;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+}
+
+.theme-toggle {
+}
+
+.dark .theme-toggle:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
+}
+
+.post-content {
+  h1 {
+    @apply text-5xl font-extrabold mt-8 mb-4;
+  }
+
+  h2 {
+    @apply text-4xl font-bold mt-6 mb-3;
+  }
+
+  h3 {
+    @apply text-3xl font-semibold mt-5 mb-2;
+  }
+
+  h4 {
+    @apply text-2xl font-medium mt-4 mb-2;
+  }
+
+  h5 {
+    @apply text-xl font-medium mt-3 mb-1;
+  }
+
+  h6 {
+    @apply text-lg font-medium mt-2 mb-1;
+  }
+
+  p {
+    @apply text-base leading-relaxed mt-2 mb-4;
+  }
+
+  blockquote {
+    @apply border-l-4 pl-4 italic text-gray-600 my-4;
+  }
+
+  pre {
+    @apply text-sm rounded-lg p-4 bg-gray-100 overflow-x-auto my-4;
+  }
+
+  code {
+    @apply bg-[#2e3440] text-gray-200 rounded px-1;
+  }
+
+  ul {
+    @apply list-disc pl-5 my-4;
+  }
+
+  ol {
+    @apply list-decimal pl-5 my-4;
+  }
+
+  li {
+    @apply mb-2;
+  }
+
+  a {
+    @apply text-blue-500 underline hover:text-blue-700;
+  }
+
+  img {
+    @apply max-w-full h-auto rounded my-4;
+  }
+
+  hr {
+    @apply border-t-2 border-gray-200 my-6;
+  }
+}
+
+.dark .post-content {
+  blockquote {
+    @apply border-gray-600 text-gray-400;
+  }
+
+  pre {
+    @apply bg-gray-800 text-gray-200;
+  }
+
+  a {
+    @apply text-blue-400 hover:text-blue-600;
+  }
+}
+
+a:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark a:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.menu-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  pointer-events: none;
+  transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.menu-panel.is-open {
+  max-height: 18rem;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .menu-panel {
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    overflow: visible;
+  }
+}
+
+.tech-chip {
+  color: #1f2937;
+  background: #d1d5db;
+}
+
+.tech-chip:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.dark .tech-chip {
+  color: #f3f4f6;
+  background: #4b5563;
+}
+
+.dark .tech-chip:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
+  color: #111827;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.social-icon {
+}
+
+.social-icon:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.1);
+}
+
+.dark .social-icon:hover {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

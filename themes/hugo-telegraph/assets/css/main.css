@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "hugo_stats.json";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "./fonts.css";
+@import "./boxicons.min.css";
+@import "./site.css";
+
+@theme {
+  --font-raleway: Raleway, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-vollkorn: Vollkorn, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
