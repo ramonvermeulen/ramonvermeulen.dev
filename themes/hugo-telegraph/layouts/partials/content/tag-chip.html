@@ -2,8 +2,9 @@
 {{- $label := .Label -}}
 {{- $count := .Count -}}
 {{- $class := default "tech-chip mr-1 px-1.5 py-0.5 rounded text-[11px]" .Class -}}
+{{- $isExternal := or (strings.HasPrefix $href "https://") (strings.HasPrefix $href "http://") -}}
 
-<a href="{{ $href }}" class="{{ $class }}">
+<a href="{{ $href }}" class="{{ $class }}"{{ if $isExternal }} target="_blank" rel="noreferrer noopener"{{ end }}>
   <span>{{ $label }}</span>
   {{ with $count }}
     <span class="ml-1 text-[10px] opacity-70">({{ . }})</span>
