@@ -2,6 +2,7 @@
   {{- $image := partial "theme/page-image.html" . -}}
   {{- $toc := .TableOfContents -}}
   {{- $hasTOC := in $toc "<li>" -}}
+  {{- $inlineTOC := .Params.toc_inline | default false -}}
 
   <article class="lg:mt-8 mt-4 flex flex-col pb-8" role="main">
     <nav class="mb-4">
@@ -25,11 +26,6 @@
         {{ end }}
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
         <div class="absolute inset-0 flex flex-col justify-between p-5 md:p-7">
-          <div class="flex flex-wrap items-center gap-3 text-[0.58rem] font-raleway uppercase tracking-[0.26em] text-white">
-            <span>{{ .Date.Format "2 Jan 2006" }}</span>
-            <span class="text-white">•</span>
-            <span>{{ .ReadingTime }} min read</span>
-          </div>
           <div class="max-w-4xl">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-[800] font-raleway text-white leading-tight max-w-3xl">
               {{ .Title }}
@@ -39,6 +35,11 @@
                 {{ . }}
               </p>
             {{ end }}
+            <div class="mt-3 flex flex-wrap items-center gap-3 text-[0.58rem] font-raleway uppercase tracking-[0.26em] text-white">
+              <span>{{ .Date.Format "2 Jan 2006" }}</span>
+              <span class="text-white">•</span>
+              <span>{{ .ReadingTime }} min read</span>
+            </div>
           </div>
         </div>
       </div>
@@ -55,14 +56,14 @@
       {{ end }}
     </header>
 
-    {{ if $hasTOC }}
-      <aside class="toc-panel mt-5">
+    {{ if and $hasTOC (not $inlineTOC) }}
+      <aside class="toc-panel mt-8 mb-9">
         <p class="toc-panel__title">On this page</p>
         {{ $toc }}
       </aside>
     {{ end }}
 
-    <div class="content-links post-content mt-3 w-full font-vollkorn text-[12.5px] leading-6 space-y-4">
+    <div class="content-links post-content mt-6 w-full font-vollkorn text-[12.5px] leading-6">
       {{ .Content }}
     </div>
   </article>

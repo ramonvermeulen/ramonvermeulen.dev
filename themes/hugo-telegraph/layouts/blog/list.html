@@ -13,7 +13,7 @@
     {{ $pages := .RegularPages.ByDate.Reverse }}
     {{ $paginator := .Paginate $pages 5 }}
     {{ if gt (len $paginator.Pages) 0 }}
-      <div class="mt-6 space-y-3">
+      <div class="mt-6 space-y-9">
         {{ range $index, $page := $paginator.Pages }}
           {{ partial "blog-card.html" (dict "Page" $page "Reverse" (eq (mod $index 2) 1) "Featured" (and (eq $paginator.PageNumber 1) (eq $index 0))) }}
         {{ end }}

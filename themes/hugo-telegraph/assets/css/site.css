@@ -58,31 +58,36 @@ html {
 
 .post-content {
   h1 {
-    @apply text-3xl font-extrabold mt-5 mb-3;
+    @apply text-3xl font-extrabold mt-10 mb-4 leading-tight;
+    scroll-margin-top: 2rem;
   }
 
   h2 {
-    @apply text-2xl font-bold mt-4 mb-2;
+    @apply text-2xl font-bold mt-11 mb-3 leading-tight;
+    scroll-margin-top: 2rem;
   }
 
   h3 {
-    @apply text-xl font-semibold mt-4 mb-2;
+    @apply text-xl font-semibold mt-8 mb-3 leading-snug;
+    scroll-margin-top: 2rem;
   }
 
   h4 {
-    @apply text-xl font-medium mt-4 mb-2;
+    @apply text-xl font-medium mt-7 mb-2 leading-snug;
+    scroll-margin-top: 2rem;
   }
 
   h5 {
-    @apply text-lg font-medium mt-3 mb-1;
+    @apply text-lg font-medium mt-6 mb-2 leading-snug;
   }
 
   h6 {
-    @apply text-base font-medium mt-2 mb-1;
+    @apply text-base font-medium mt-5 mb-2 leading-snug;
   }
 
   p {
-    @apply text-[0.92rem] leading-relaxed mt-2 mb-3;
+    @apply text-[0.92rem] mt-2 mb-3;
+    line-height: 1.62;
   }
 
   p:first-child {
@@ -98,15 +103,26 @@ html {
   }
 
   ul {
-    @apply list-disc pl-5 my-4;
+    @apply list-disc pl-5 my-4 text-[0.92rem];
+    line-height: 1.58;
   }
 
   ol {
-    @apply list-decimal pl-5 my-4;
+    @apply list-decimal pl-5 my-4 text-[0.92rem];
+    line-height: 1.58;
   }
 
   li {
-    @apply mb-2;
+    @apply my-1.5;
+  }
+
+  li::marker {
+    color: #6b7280;
+  }
+
+  li > ul,
+  li > ol {
+    @apply my-2;
   }
 
   img {
@@ -114,17 +130,21 @@ html {
   }
 
   hr {
-    @apply border-t-2 border-gray-200 my-5;
+    @apply border-t-2 border-gray-200 my-8;
   }
 
   table {
-    @apply my-5 w-full border-collapse text-left text-sm;
+    @apply my-7 w-full border-collapse text-left text-sm;
   }
 
   th,
   td {
     @apply border border-gray-200 px-3 py-2;
   }
+}
+
+.post-content > .toc-panel {
+  @apply mt-8 mb-10;
 }
 
 .dark .post-content {
@@ -139,6 +159,10 @@ html {
   th,
   td {
     @apply border-gray-700;
+  }
+
+  li::marker {
+    color: #9ca3af;
   }
 }
 
@@ -320,12 +344,12 @@ a:hover {
 }
 
 .code-block {
-  @apply my-6 overflow-hidden border border-black/10 bg-white/45 shadow-none dark:border-white/10 dark:bg-white/5;
+  @apply my-5 overflow-hidden border border-black/10 bg-white/45 shadow-none dark:border-white/10 dark:bg-white/5;
   backdrop-filter: blur(12px);
 }
 
 .code-block__header {
-  @apply flex items-center justify-between gap-3 px-4 py-2.5;
+  @apply flex items-center justify-between gap-3 px-3.5 py-2;
   border-bottom: 1px solid rgba(17, 24, 39, 0.08);
   background: rgba(255, 255, 255, 0.12);
 }
@@ -354,7 +378,7 @@ a:hover {
 }
 
 .code-block__copy {
-  @apply inline-flex items-center px-2.5 py-1 text-[0.64rem] font-semibold font-raleway uppercase tracking-[0.18em];
+  @apply inline-flex items-center px-2 py-0.5 text-[0.6rem] font-semibold font-raleway uppercase tracking-[0.18em];
   border: 1px solid rgba(17, 24, 39, 0.1);
   color: #4b5563;
   background: rgba(255, 255, 255, 0.18);
@@ -401,7 +425,8 @@ a:hover {
 }
 
 .code-block__body pre {
-  @apply m-0 overflow-x-auto rounded-none border-0 px-4 py-3 text-sm leading-6;
+  @apply m-0 overflow-x-auto rounded-none border-0 px-3.5 py-2.5 text-[0.82rem];
+  line-height: 1.45;
   background: transparent !important;
   box-shadow: none;
 }
