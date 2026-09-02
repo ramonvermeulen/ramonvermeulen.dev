@@ -1,6 +1,6 @@
 +++
 title = "Managing Multiple Git Identities and SSH Keys for Engineers Who Often Switch Hats"
-date = 2026-05-28T00:00:00+02:00
+date = 2026-09-02T00:18:00+02:00
 description = "Stop accidentally using the wrong Git email or SSH key. With a few smart config tweaks, your project directory automatically picks the right identity, so you never have to think about it again."
 image = "/img/blog/multiple-hats.jpg"
 draft = false
@@ -16,7 +16,7 @@ because you're using the wrong SSH key, this post is for you.
 
 Think about the different contexts you operate in: personal projects, open‑source
 contributions, client work, work for your direct employer. Each one isn't just a
-different codebase, it's a completely separate identity consisting of:
+different codebase; it's a completely separate identity consisting of:
 
 - Git name and email address
 - Account on a service like GitHub or GitLab
@@ -34,10 +34,10 @@ lives, so you can stop thinking about it and focus on code.
 
 We'll configure two separate layers:
 
-1. **Git** – uses the correct `user.name`, `user.email`, and signing key.
+1. **Git** – uses the correct `user.name`, `user.email`, and GPG/SSH signing key.
 2. **SSH** – uses the correct private key when you push to remotes like GitHub.
 
-The trick is to make both tools _*"directory‑aware"*_. When you navigate into a
+The trick is to make both tools **directory‑aware**. When you navigate into a
 project directory, your system detects which identity you're using and applies
 the right settings. No manual switching, no custom shell aliases, no mental
 overhead.
@@ -65,15 +65,15 @@ context.
 
 Git supports conditional includes through the [`includeIf`](https://git-scm.com/docs/git-config#_includes)
 directive. The condition we care about is [`gitdir:...`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gitdir).
-The data that follows `gitdir:` and a colon is used as a glob pattern. If the
-location of the .git directory matches the pattern, the include condition is met.
+The pattern after `gitdir:` is treated as a [glob](<https://en.wikipedia.org/wiki/Glob_(programming)>).
+If the location of the `.git` directory matches the pattern, the include condition
+is met.
 
-And here's the key detail: **\_"if the pattern ends with `/`, `**` will be
-automatically added"\_\*\*.
+And here's the key detail: **_"if the pattern ends with `/`, Git treats it as matching
+that directory and everything inside it"_**.
 
-In other words, it matches the directory and everything inside
-it, recursively. Point it at e.g. `~/projects/work/client-a/`, and it'll apply to
-any repository nested anywhere under that path.
+Point it at, for example, `~/projects/work/client-a/`, and it'll apply to any
+repository nested under that path.
 
 Let's see how to set this up.
 
@@ -119,8 +119,9 @@ Client B's profile:
 
 And so on for each client or organization you work with.
 
-> **Note:** You can use either a GPG key or an SSH key for signing. The example above uses SSH keys (which is simpler
-> to set up if you already have SSH keys). If you prefer GPG, replace the `signingkey` path with your GPG key ID, like
+> **Note:** You can use either a GPG key or an SSH key for signing. The example
+> above uses SSH keys (which is simpler to set up if you already have SSH keys).
+> If you prefer GPG, replace the `signingkey` path with your GPG key ID, like
 > `signingkey = ABC123DEF456`.
 
 For more information about commit signing, see [Git Commit Signing](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work).
@@ -205,7 +206,7 @@ your projects.
 ## Making SSH directory-aware
 
 Git now knows which identity to use. But SSH may still use the wrong key when you
-push to your remote.
+push to GitHub or another SSH remote.
 
 **The distinction**: Git controls what's written in your commits (locally). SSH
 controls which account you authenticate as when you push. Changing `user.email`
@@ -215,8 +216,12 @@ This is true even if you use SSH keys for signing. Signing happens locally to
 verify authorship; authentication happens remotely when you push. They're separate
 concerns.
 
-> **Note:** This guide assumes you use SSH Keys to authenticate with
-> your remote. If you don't, see [Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+> **Note:** This guide assumes you use SSH keys to authenticate with your remote,
+> see [Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+
+The examples below use GitHub because it is a common case, but the same pattern
+works for any SSH-based Git remote. Replace `github.com` with the host you use,
+such as your company Git server or a self-hosted Git service.
 
 ### The usual approach: SSH host aliases
 
@@ -231,14 +236,15 @@ Host github-client-a
 
 This works, but your repository URLs become ugly: `git@github-client-a:client-a/repo.git`.
 
-I wanted to keep using `git@github.com` and let the directory determine the SSH key.
+I wanted to keep using the normal remote host, `git@github.com`, and let the
+directory determine the SSH key.
 
 ### The better approach: Match exec
 
 OpenSSH's [`Match`](https://man.openbsd.org/ssh_config#Match) directive supports
 an exec condition that executes a command under your shell. **If the command returns
 a zero exit status, the configuration block applies**. We'll use it to test the
-current working directory via `pwd | grep -q`, the command succeeds only when the
+current working directory via `pwd | grep -q`; the command succeeds only when the
 current path matches the specified directory.
 
 ```text {filename="~/.ssh/config" lineNos=false}
@@ -262,7 +268,7 @@ Match host github.com exec "pwd | grep -q '^/Users/yourname/projects/work/client
   IdentityFile ~/.ssh/id_ed25519-client-b
   IdentitiesOnly yes
 
-# Fallback (must come last, not required but for demonstration)
+# Fallback (must come last)
 Host github.com
   HostName github.com
   User git
@@ -289,7 +295,7 @@ SSH will always use the fallback key.
 
 ### Testing your SSH configuration
 
-To check which key SSH would use:
+To check which key SSH would use for the example GitHub host:
 
 ```bash {lineNos=false}
 ssh -G github.com | grep identityfile
@@ -314,7 +320,7 @@ ssh -G github.com | grep identityfile
 If everything works, your directory is now controlling both:
 
 - The identity written into your commits.
-- The SSH key used to push to GitHub.
+- The SSH key used to push to your git remote.
 
 ## One limitation to keep in mind
 
@@ -339,13 +345,13 @@ chmod 600 ~/.ssh/*id_ed25519* # or whatever your private key filenames are
 ```
 
 For an additional layer of defense, consider storing your keys in a password
-manager's SSH agent (E.g. [**1Password**](https://www.1password.dev/ssh/agent)
-or [**Bitwarden**](https://bitwarden.com/help/ssh-agent/)) instead of static files.
+manager's SSH agent, like [**1Password**](https://www.1password.dev/ssh/agent)
+or [**Bitwarden**](https://bitwarden.com/help/ssh-agent/), instead of static files.
 The agent decrypts your key directly into memory without writing it to disk,
 and the `Match exec` logic works unchanged. Just swap `IdentityFile`
 for `IdentityAgent`. It's a convenient way to centralize and sync keys, but with
-a strong passphrases and FDE, the standard file-based approach is already fairly
-secure.
+a strong passphrase and full-disk encryption, the standard file-based approach is
+already fairly secure.
 
 ## Closing thoughts
 
