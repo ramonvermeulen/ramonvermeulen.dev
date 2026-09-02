@@ -19,6 +19,16 @@
     });
   };
 
+  const applyThemeWithoutCTAAnimation = (theme) => {
+    document.documentElement.classList.add("is-theme-switching");
+    applyTheme(theme);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document.documentElement.classList.remove("is-theme-switching");
+      });
+    });
+  };
+
   const initTheme = () => {
     const saved = localStorage.getItem(themeKey);
     const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -101,7 +111,7 @@
     themeButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const isDark = document.documentElement.classList.contains("dark");
-        applyTheme(isDark ? "light" : "dark");
+        applyThemeWithoutCTAAnimation(isDark ? "light" : "dark");
       });
     });
 

@@ -24,6 +24,10 @@ html {
   transition: background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
+.is-theme-switching .cta-chip {
+  transition: none;
+}
+
 .dark .cta-chip {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.82);
