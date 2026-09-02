@@ -37,7 +37,7 @@ We'll configure two separate layers:
 1. **Git** – uses the correct `user.name`, `user.email`, and GPG/SSH signing key.
 2. **SSH** – uses the correct private key when you push to remotes like GitHub.
 
-The trick is to make both tools **directory‑aware**. When you navigate into a
+The trick is to make both tools **_"directory‑aware"_**. When you navigate into a
 project directory, your system detects which identity you're using and applies
 the right settings. No manual switching, no custom shell aliases, no mental
 overhead.
@@ -69,8 +69,7 @@ The pattern after `gitdir:` is treated as a [glob](<https://en.wikipedia.org/wik
 If the location of the `.git` directory matches the pattern, the include condition
 is met.
 
-And here's the key detail: **_"if the pattern ends with `/`, Git treats it as matching
-that directory and everything inside it"_**.
+And here's the key detail: **_"If the pattern ends with `/`, `*` will be automatically added"_**.
 
 Point it at, for example, `~/projects/work/client-a/`, and it'll apply to any
 repository nested under that path.
