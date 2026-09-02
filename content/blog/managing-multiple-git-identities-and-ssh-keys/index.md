@@ -1,6 +1,6 @@
 +++
 title = "Managing Multiple Git Identities and SSH Keys for Engineers Who Often Switch Hats"
-date = 2026-05-28T00:00:00+02:00
+date = 2026-09-02T00:18:00+02:00
 description = "Stop accidentally using the wrong Git email or SSH key. With a few smart config tweaks, your project directory automatically picks the right identity, so you never have to think about it again."
 image = "/img/blog/multiple-hats.jpg"
 draft = false
@@ -320,7 +320,7 @@ ssh -G github.com | grep identityfile
 If everything works, your directory is now controlling both:
 
 - The identity written into your commits.
-- The SSH key used to push to your SSH remote.
+- The SSH key used to push to your git remote.
 
 ## One limitation to keep in mind
 
