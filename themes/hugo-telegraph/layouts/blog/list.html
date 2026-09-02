@@ -2,7 +2,7 @@
   <div class="lg:mt-8 mt-4 flex flex-1 flex-col pb-8" role="main">
     {{ partial "content/page-header.html" (dict
       "title" "<span class=\"font-[200]\">Blog</span> Posts"
-      "titleClass" "text-4xl sm:text-6xl font-[800] mb-3 font-raleway title-nudge"
+      "titleClass" "text-4xl sm:text-6xl font-[700] mb-3 font-ui title-nudge"
     ) }}
     {{ with .Content }}
       <div class="content-links max-w-3xl text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
@@ -13,7 +13,7 @@
     {{ $pages := .RegularPages.ByDate.Reverse }}
     {{ $paginator := .Paginate $pages 5 }}
     {{ if gt (len $paginator.Pages) 0 }}
-      <div class="mt-6 space-y-3">
+      <div class="mt-6 space-y-9">
         {{ range $index, $page := $paginator.Pages }}
           {{ partial "blog-card.html" (dict "Page" $page "Reverse" (eq (mod $index 2) 1) "Featured" (and (eq $paginator.PageNumber 1) (eq $index 0))) }}
         {{ end }}

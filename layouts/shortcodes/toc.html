@@ -1,0 +1,10 @@
+{{- $toc := .Page.TableOfContents -}}
+{{- if not (in $toc "<li>") -}}
+  {{- $toc = (.Page.Fragments.ToHTML 2 4 false) -}}
+{{- end -}}
+{{- if in $toc "<li>" -}}
+<aside class="toc-panel mt-7 mb-6">
+  <p class="toc-panel__title">On this page</p>
+  {{ $toc }}
+</aside>
+{{- end -}}

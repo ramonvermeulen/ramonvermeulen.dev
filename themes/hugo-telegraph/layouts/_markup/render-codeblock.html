@@ -1,28 +1,65 @@
 {{- $type := .Type | default "text" -}}
 {{- $attrs := .Attributes | default dict -}}
+{{- $options := .Options | default dict -}}
 {{- $filename := or (index $attrs "filename") (index $attrs "title") -}}
 {{- $canHighlight := transform.CanHighlight .Type -}}
-{{- $opts := dict "noClasses" false "lineNos" true "lineNumbersInTable" false -}}
+{{- $lines := split (trim .Inner "\n") "\n" -}}
+{{- $lineNos := true -}}
+{{- $lineNosAttr := "" -}}
+{{- if isset $options "lineNos" -}}
+  {{- $lineNosAttr = lower (printf "%v" (index $options "lineNos")) -}}
+{{- else if isset $options "linenos" -}}
+  {{- $lineNosAttr = lower (printf "%v" (index $options "linenos")) -}}
+{{- else if isset $attrs "lineNos" -}}
+  {{- $lineNosAttr = lower (printf "%v" (index $attrs "lineNos")) -}}
+{{- else if isset $attrs "linenos" -}}
+  {{- $lineNosAttr = lower (printf "%v" (index $attrs "linenos")) -}}
+{{- end -}}
+{{- if in (slice "false" "0" "no" "off") $lineNosAttr -}}
+  {{- $lineNos = false -}}
+{{- end -}}
+{{- $showCopy := gt (len $lines) 1 -}}
+{{- $copyAttr := "" -}}
+{{- if isset $options "copy" -}}
+  {{- $copyAttr = lower (printf "%v" (index $options "copy")) -}}
+{{- else if isset $options "copyButton" -}}
+  {{- $copyAttr = lower (printf "%v" (index $options "copyButton")) -}}
+{{- else if isset $options "copybutton" -}}
+  {{- $copyAttr = lower (printf "%v" (index $options "copybutton")) -}}
+{{- else if isset $attrs "copy" -}}
+  {{- $copyAttr = lower (printf "%v" (index $attrs "copy")) -}}
+{{- else if isset $attrs "copyButton" -}}
+  {{- $copyAttr = lower (printf "%v" (index $attrs "copyButton")) -}}
+{{- else if isset $attrs "copybutton" -}}
+  {{- $copyAttr = lower (printf "%v" (index $attrs "copybutton")) -}}
+{{- end -}}
+{{- if in (slice "true" "1" "yes" "on") $copyAttr -}}
+  {{- $showCopy = true -}}
+{{- else if in (slice "false" "0" "no" "off") $copyAttr -}}
+  {{- $showCopy = false -}}
+{{- end -}}
+{{- $opts := dict "noClasses" false "lineNos" $lineNos "lineNumbersInTable" false -}}
 {{- $result := "" -}}
 {{- if $canHighlight -}}
   {{- $result = transform.HighlightCodeBlock . $opts -}}
 {{- end -}}
 
-<div class="code-block not-prose" data-code-block>
-  <div class="code-block__header">
-    <div class="code-block__meta">
-      {{ with $filename }}
+<div class="code-block{{ if $filename }} code-block--with-filename{{ end }}{{ if $lineNos }} code-block--line-numbers{{ end }} not-prose" data-code-block>
+  {{ with $filename }}
+    <div class="code-block__header">
+      <div class="code-block__meta">
         <span class="code-block__filename">{{ . }}</span>
-      {{ end }}
+      </div>
     </div>
-    <button type="button" class="code-block__copy" data-code-copy data-copy-state="idle">Copy</button>
-  </div>
+  {{ end }}
+  {{ if $showCopy }}
+    <button type="button" class="code-block__copy" data-code-copy data-copy-state="idle" aria-label="Copy code">Copy</button>
+  {{ end }}
   <div class="code-block__body">
     {{- if $canHighlight -}}
       {{- $result.Wrapped -}}
     {{- else -}}
-      {{- $lines := split (trim .Inner "\n") "\n" -}}
-      <pre tabindex="0" class="chroma"><code class="language-{{ $type }}" data-lang="{{ $type }}">{{- range $index, $line := $lines -}}<span class="line"><span class="ln">{{ add $index 1 }}</span><span class="cl">{{- if eq $line "" -}}&#8203;{{- else -}}{{ $line | htmlEscape }}{{- end -}}</span></span>
+      <pre tabindex="0" class="chroma"><code class="language-{{ $type }}" data-lang="{{ $type }}">{{- range $index, $line := $lines -}}<span class="line">{{- if $lineNos -}}<span class="ln">{{ add $index 1 }}</span>{{- end -}}<span class="cl">{{- if eq $line "" -}}&#8203;{{- else -}}{{ $line | htmlEscape }}{{- end -}}</span></span>
 {{- end -}}</code></pre>
     {{- end -}}
   </div>
