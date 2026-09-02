@@ -5,7 +5,7 @@
     {{ range $links }}
       {{- $link := . -}}
       {{- with $link.url -}}
-        <a href="{{ . }}" target="_blank" rel="noreferrer noopener" aria-label="{{ $link.label }}" class="text-2xl hover:text-gray-500 dark:text-gray-200 dark:hover:text-white">
+        <a href="{{ . }}" target="_blank" rel="noreferrer noopener" aria-label="{{ $link.label }}" class="social-link text-2xl hover:text-gray-500 dark:text-gray-200 dark:hover:text-white">
           <i class='bx {{ $link.icon }} social-icon'></i>
         </a>
       {{- end -}}

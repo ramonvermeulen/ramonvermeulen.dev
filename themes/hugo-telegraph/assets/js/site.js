@@ -68,7 +68,11 @@
   const handleCodeCopy = async (button) => {
     const block = button.closest("[data-code-block]");
     const code = block?.querySelector("code");
-    const text = code?.innerText?.replace(/\n$/, "");
+    const codeLines = code ? Array.from(code.querySelectorAll(".cl")) : [];
+    const text = (codeLines.length > 0
+      ? codeLines.map((line) => line.innerText.replace(/\u200b/g, "")).join("\n")
+      : code?.innerText
+    )?.replace(/\n$/, "");
 
     if (!text) return;
 
