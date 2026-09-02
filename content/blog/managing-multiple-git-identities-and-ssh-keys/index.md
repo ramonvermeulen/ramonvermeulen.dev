@@ -86,7 +86,7 @@ Your personal profile:
 [user]
  name = "Your Name"
  email = your.personal@email.com
- signingkey = /Users/yourname/.ssh/id_ed25519-personal-signing.pub
+ signingkey = /path/to/your/home/.ssh/id_ed25519-personal-signing.pub
 ```
 
 Your work profile:
@@ -95,7 +95,7 @@ Your work profile:
 [user]
  name = "Your Name"
  email = your.name@company.com
- signingkey = /Users/yourname/.ssh/id_ed25519-employer-signing.pub
+ signingkey = /path/to/your/home/.ssh/id_ed25519-employer-signing.pub
 ```
 
 Client A's profile:
@@ -104,7 +104,7 @@ Client A's profile:
 [user]
  name = "Your Name"
  email = your.name@client-a.com
- signingkey = /Users/yourname/.ssh/id_ed25519-client-a-signing.pub
+ signingkey = /path/to/your/home/.ssh/id_ed25519-client-a-signing.pub
 ```
 
 Client B's profile:
@@ -113,7 +113,7 @@ Client B's profile:
 [user]
  name = "Your Name"
  email = your.name@client-b.com
- signingkey = /Users/yourname/.ssh/id_ed25519-client-b-signing.pub
+ signingkey = /path/to/your/home/.ssh/id_ed25519-client-b-signing.pub
 ```
 
 And so on for each client or organization you work with.
@@ -244,40 +244,36 @@ OpenSSH's [`Match`](https://man.openbsd.org/ssh_config#Match) directive supports
 an exec condition that executes a command under your shell. **If the command returns
 a zero exit status, the configuration block applies**. We'll use it to test the
 current working directory via `pwd | grep -q`; the command succeeds only when the
-current path matches the specified directory.
+current path matches the specified directory. The [`%d` token](https://man7.org/linux/man-pages/man5/ssh_config.5.html#TOKENS)
+expands to your home directory, so you can keep the rules portable without
+hardcoding your home path.
 
 ```text {filename="~/.ssh/config" lineNos=false}
+# Set this ONCE globally. It applies to all connections below.
+IdentitiesOnly yes
+
 # Personal
-Match host github.com exec "pwd | grep -q '^/Users/yourname/projects/personal/'"
+Match host github.com exec "pwd | grep -q '^%d/projects/personal/'"
   IdentityFile ~/.ssh/id_ed25519-personal
-  IdentitiesOnly yes
 
 # Employer
-Match host github.com exec "pwd | grep -q '^/Users/yourname/projects/work/employer/'"
+Match host github.com exec "pwd | grep -q '^%d/projects/work/employer/'"
   IdentityFile ~/.ssh/id_ed25519-employer
-  IdentitiesOnly yes
 
 # Client A
-Match host github.com exec "pwd | grep -q '^/Users/yourname/projects/work/client-a/'"
+Match host github.com exec "pwd | grep -q '^%d/projects/work/client-a/'"
   IdentityFile ~/.ssh/id_ed25519-client-a
-  IdentitiesOnly yes
 
 # Client B
-Match host github.com exec "pwd | grep -q '^/Users/yourname/projects/work/client-b/'"
+Match host github.com exec "pwd | grep -q '^%d/projects/work/client-b/'"
   IdentityFile ~/.ssh/id_ed25519-client-b
-  IdentitiesOnly yes
 
 # Fallback (must come last)
 Host github.com
   HostName github.com
   User git
   IdentityFile ~/.ssh/id_ed25519
-  IdentitiesOnly yes
 ```
-
-> **Important:** Unlike Git, SSH's Match exec doesn't reliably expand `~` or `$HOME`.
-> Always use the full absolute path for SSH conditions. Replace `/Users/yourname/`
-> with your actual home directory path. You can find it with: `echo $HOME`.
 
 #### Why `IdentitiesOnly yes`?
 
